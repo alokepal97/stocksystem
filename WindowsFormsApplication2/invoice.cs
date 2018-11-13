@@ -48,7 +48,10 @@ namespace WindowsFormsApplication2
 
             try
             {
-                connection.Close();
+                if(connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
@@ -62,7 +65,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
         //-----------------datagridview1 cell no-----------------!
@@ -77,76 +83,83 @@ namespace WindowsFormsApplication2
         //---------------------modify button----------------
         private void button2_Click(object sender, EventArgs e)
         {
-
-            this.tabControl1.SelectedTab = tabPage2;
-            DataGridViewRow newDataRow = dataGridView1.Rows[selectedrow];
-            DataGridViewRow row = dataGridView1.Rows[selectedrow];
-            dataGridView2.Rows.Clear();
-
-            //!-------------------------  ------------------!
-            textBox2.Text = row.Cells[0].Value.ToString();
-            textBox3.Text = row.Cells[0].Value.ToString();
-            dateTimePicker1.Text = row.Cells[1].Value.ToString();
-            comboBox1.Text = row.Cells[2].Value.ToString();
-            dateTimePicker2.Text = row.Cells[3].Value.ToString();
-            comboBox2.Text = row.Cells[4].Value.ToString();
-
-            int discount = 0;
-            //!--------fetch from database
-            OleDbDataReader rdr = null;
-            OleDbCommand cmd = new OleDbCommand("select * from invoice where  (in_no = @id) and (type = 'in')", connection);
-            cmd.Parameters.AddWithValue("@id", row.Cells[0].Value.ToString());
-            try
+            if (dataGridView1.Rows.Count > 0)
             {
-                connection.Close();
-                connection.Open();
-                rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                this.tabControl1.SelectedTab = tabPage2;
+                DataGridViewRow row = dataGridView1.Rows[selectedrow];
+                dataGridView2.Rows.Clear();
+                //!-------------------------  ------------------!
+                textBox2.Text = row.Cells[0].Value.ToString();
+                textBox3.Text = row.Cells[0].Value.ToString();
+                dateTimePicker1.Text = row.Cells[1].Value.ToString();
+                comboBox1.Text = row.Cells[2].Value.ToString();
+                dateTimePicker2.Text = row.Cells[3].Value.ToString();
+                comboBox2.Text = row.Cells[4].Value.ToString();
+
+                int discount = 0;
+                //!--------fetch from database
+                OleDbDataReader rdr = null;
+                OleDbCommand cmd = new OleDbCommand("select * from invoice where  (in_no = @id) and (type = 'in')", connection);
+                cmd.Parameters.AddWithValue("@id", row.Cells[0].Value.ToString());
+                try
                 {
-                    textBox5.Text = Convert.ToString(rdr["b_add"]);
-                    textBox6.Text = Convert.ToString(rdr["b_city"]);
-                    textBox7.Text = Convert.ToString(rdr["b_zip"]);
-                    textBox8.Text = Convert.ToString(rdr["b_state"]);
-                    textBox9.Text = Convert.ToString(rdr["b_country"]);
-                    textBox12.Text = Convert.ToString(rdr["s_add"]);
-                    textBox11.Text = Convert.ToString(rdr["s_city"]);
-                    textBox10.Text = Convert.ToString(rdr["s_zip"]);
-                    textBox14.Text = Convert.ToString(rdr["s_state"]);
-                    textBox13.Text = Convert.ToString(rdr["s_country"]);
-                    comboBox3.Text = Convert.ToString(rdr["sales_person"]);
-                    textBox15.Text = Convert.ToString(rdr["contact_name"]);
-                    textBox16.Text = Convert.ToString(rdr["notes"]);
-
-                    dataGridView2.Rows.Add(Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_name"]), Convert.ToString(rdr["qty"]), Convert.ToString(rdr["unit"]), Convert.ToString(rdr["price"]), Convert.ToString(rdr["disc"]), Convert.ToString(rdr["disc_amount"]), Convert.ToString(rdr["total"]), Convert.ToString(rdr["disamount"]), Convert.ToString(rdr["cgst"]), Convert.ToString(rdr["cgst_amt"]), Convert.ToString(rdr["sgst"]), Convert.ToString(rdr["sgst_amt"]));
-                    textBox20.Text = Convert.ToString(rdr["receive_amount"]);
-                    textBox21.Text = Convert.ToString(rdr["extra_discount"]);
-                    discount += Convert.ToInt32(Convert.ToString(rdr["disc"]));
-                    textBox17.Text = Convert.ToString(discount);
-                    double net = 0.000;
-                    for (int i = 0; i < dataGridView2.Rows.Count; ++i)
+                    if (connection.State == ConnectionState.Open)
                     {
-                        net += Convert.ToDouble(dataGridView2.Rows[i].Cells[7].Value);
+                        connection.Close();
                     }
-                    textBox18.Text = net.ToString();
-
-                    double neta = 0.000;
-                    for (int j = 0; j < dataGridView2.Rows.Count; ++j)
+                    connection.Open();
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
                     {
-                        neta += Convert.ToDouble(dataGridView2.Rows[j].Cells[8].Value);
+                        textBox5.Text = Convert.ToString(rdr["b_add"]);
+                        textBox6.Text = Convert.ToString(rdr["b_city"]);
+                        textBox7.Text = Convert.ToString(rdr["b_zip"]);
+                        textBox8.Text = Convert.ToString(rdr["b_state"]);
+                        textBox9.Text = Convert.ToString(rdr["b_country"]);
+                        textBox12.Text = Convert.ToString(rdr["s_add"]);
+                        textBox11.Text = Convert.ToString(rdr["s_city"]);
+                        textBox10.Text = Convert.ToString(rdr["s_zip"]);
+                        textBox14.Text = Convert.ToString(rdr["s_state"]);
+                        textBox13.Text = Convert.ToString(rdr["s_country"]);
+                        comboBox3.Text = Convert.ToString(rdr["sales_person"]);
+                        textBox15.Text = Convert.ToString(rdr["contact_name"]);
+                        textBox16.Text = Convert.ToString(rdr["notes"]);
+
+                        dataGridView2.Rows.Add(Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_name"]), Convert.ToString(rdr["qty"]), Convert.ToString(rdr["unit"]), Convert.ToString(rdr["price"]), Convert.ToString(rdr["disc"]), Convert.ToString(rdr["disc_amount"]), Convert.ToString(rdr["total"]), Convert.ToString(rdr["disamount"]), Convert.ToString(rdr["cgst"]), Convert.ToString(rdr["cgst_amt"]), Convert.ToString(rdr["sgst"]), Convert.ToString(rdr["sgst_amt"]));
+                        textBox20.Text = Convert.ToString(rdr["receive_amount"]);
+                        textBox21.Text = Convert.ToString(rdr["extra_discount"]);
+                        discount += Convert.ToInt32(Convert.ToString(rdr["disc"]));
+                        textBox17.Text = Convert.ToString(discount);
+                        double net = 0.000;
+                        for (int i = 0; i < dataGridView2.Rows.Count; ++i)
+                        {
+                            net += Convert.ToDouble(dataGridView2.Rows[i].Cells[7].Value);
+                        }
+                        textBox18.Text = net.ToString();
+
+                        double neta = 0.000;
+                        for (int j = 0; j < dataGridView2.Rows.Count; ++j)
+                        {
+                            neta += Convert.ToDouble(dataGridView2.Rows[j].Cells[8].Value);
+                        }
+                        textBox19.Text = Convert.ToString(neta);
+
                     }
-                    textBox19.Text = Convert.ToString(neta);
-                  
+                }
+                catch (Exception w)
+                {
+                    MessageBox.Show("" + w);
+                }
+
+                finally
+                {
+                    if(connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
-            catch (Exception w)
-            {
-                MessageBox.Show("" + w);
-            }
-
-            finally
-            {
-                connection.Close();
-            }
+            
         }
 
         //!--------- Row Edit-------------!!
@@ -154,9 +167,6 @@ namespace WindowsFormsApplication2
         {
             try
             {
-
-
-
                 if (dataGridView2.Rows[e.RowIndex].Cells[0].Value != null)
                 {
                     invoice.code = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -247,105 +257,132 @@ namespace WindowsFormsApplication2
         //----------------save code------------------------
         private void button3_Click(object sender, EventArgs e)
         {
-            //---------------- insert query------------------------
-            try
+            if (dataGridView2.Rows.Count > 0)
             {
-                int id = Convert.ToInt32(textBox3.Text);
-
-                if (id == 0)
+                //---------------- insert query------------------------
+                try
                 {
-                    string status = "";
-                    string due = "";
-                    if (Convert.ToDouble(textBox19.Text) == Convert.ToDouble(textBox20.Text))
+                    int id = Convert.ToInt32(textBox3.Text);
+
+                    if (id == 0)
                     {
-
-                        status = "Paid";
-                        due = "0";
-                    }
-                    else
-                    {
-                        status = "Due";
-                        due = Convert.ToString(Convert.ToDouble(textBox19.Text) - Convert.ToDouble(textBox20.Text));
-
-                    }
-                    //insert into in_main
-                    connection.Open();
-                    string com = "insert into in_main(in_no,in_date,or_no, or_date,c_code,c_name,amount,status,due_amount,type) values('" + textBox2.Text + "','" + dateTimePicker1.Text + "','" + comboBox1.Text + "','" + dateTimePicker2.Text + "','" + comboBox2.SelectedValue + "','" + comboBox2.Text + "','" + textBox19.Text + "',@status,@due,@type) ";
-                    OleDbCommand comm = new OleDbCommand(com, connection);
-                    comm.Parameters.AddWithValue("@status", status);
-                    comm.Parameters.AddWithValue("@due", due);
-                    comm.Parameters.AddWithValue("@type", "in");
-                    comm.ExecuteNonQuery();
-                    connection.Close();
-
-                    foreach (DataGridViewRow row in dataGridView2.Rows)
-                    {
-
-                        connection.Open();
-                        string command = "insert into invoice(in_no,in_date,order_no, order_date,c_name,b_add,b_city,b_zip,b_state,b_country,s_add,s_city,s_zip,s_state,s_country,sales_person,contact_name,item_code,item_name,qty,unit,price,disc,disc_amount,total,disamount,cgst,cgst_amt,sgst,sgst_amt,notes,extra_discount,net_amount,receive_amount,type) values('" + textBox2.Text + "','" + dateTimePicker1.Text + "','" + comboBox1.Text + "','" + dateTimePicker2.Text + "','" + comboBox2.Text + "','" + textBox5.Text + "','" + textBox6.Text + "','" + textBox7.Text + "','" + textBox8.Text + "','" + textBox9.Text + "','" + textBox12.Text + "','" + textBox11.Text + "','" + textBox10.Text + "','" + textBox14.Text + "','" + textBox13.Text + "','" + comboBox3.Text + "','" + textBox15.Text + "',@item_code,@item_name,@qty,@unit,@price,@disc,@disc_amount,@total,@dismount,@cgst,@cgst_amt,@sgst,@sgst_amt,'" + textBox16.Text + "',@extra_discount,'" + textBox19.Text + "','" + textBox20.Text + "',@type) ";
-                        OleDbCommand cmdd = new OleDbCommand(command, connection);
-                        cmdd.Parameters.AddWithValue("@item_code", row.Cells[0].Value);
-                        cmdd.Parameters.AddWithValue("@item_name", row.Cells[1].Value);
-                        cmdd.Parameters.AddWithValue("@qty", row.Cells[2].Value);
-                        cmdd.Parameters.AddWithValue("@unit", row.Cells[3].Value);
-                        cmdd.Parameters.AddWithValue("@price", row.Cells[4].Value);
-                        cmdd.Parameters.AddWithValue("@disc", row.Cells[5].Value);
-                        cmdd.Parameters.AddWithValue("@disc_amount", row.Cells[6].Value);
-                        cmdd.Parameters.AddWithValue("@total", row.Cells[7].Value);
-                        cmdd.Parameters.AddWithValue("@disamount", row.Cells[8].Value);
-                        cmdd.Parameters.AddWithValue("@cgst", row.Cells[9].Value);
-                        cmdd.Parameters.AddWithValue("@cgst_amt", row.Cells[10].Value);
-                        cmdd.Parameters.AddWithValue("@sgst", row.Cells[11].Value);
-                        cmdd.Parameters.AddWithValue("@sgst_amt", row.Cells[12].Value);
-                        cmdd.Parameters.AddWithValue("@extra_discount", textBox21.Text);
-                        cmdd.Parameters.AddWithValue("@type", "in");
-                        cmdd.ExecuteNonQuery();
-
-                        invoice.code = row.Cells[0].Value.ToString();
-                        stock_check st = new stock_check();
-                        st.getstock();
-                        invoice.code = row.Cells[0].Value.ToString();
-                        invoice.qty = Convert.ToString(stock_check.stock - Convert.ToDouble(row.Cells[2].Value.ToString()));
-                        insert_update_invoice up = new insert_update_invoice();
-                        up.update_stock();
-                      
-                        // update id 
-                        int idd = 1;
-                        tax = get_id.invoice_id + 1;
-                         
-                        try
+                        string status = "";
+                        string due = "";
+                        if (Convert.ToDouble(textBox19.Text) == Convert.ToDouble(textBox20.Text))
                         {
-                            OleDbCommand command2 = new OleDbCommand(@"UPDATE get_id
+
+                            status = "Paid";
+                            due = "0";
+                        }
+                        else
+                        {
+                            status = "Due";
+                            due = Convert.ToString(Convert.ToDouble(textBox19.Text) - Convert.ToDouble(textBox20.Text));
+
+                        }
+                        //insert into in_main
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                        connection.Open();
+                        string com = "insert into in_main(in_no,in_date,or_no, or_date,c_code,c_name,amount,status,due_amount,type) values('" + textBox2.Text + "','" + dateTimePicker1.Text + "','" + comboBox1.Text + "','" + dateTimePicker2.Text + "','" + comboBox2.SelectedValue + "','" + comboBox2.Text + "','" + textBox19.Text + "',@status,@due,@type) ";
+                        OleDbCommand comm = new OleDbCommand(com, connection);
+                        comm.Parameters.AddWithValue("@status", status);
+                        comm.Parameters.AddWithValue("@due", due);
+                        comm.Parameters.AddWithValue("@type", "in");
+                        comm.ExecuteNonQuery();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+
+                        foreach (DataGridViewRow row in dataGridView2.Rows)
+                        {
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
+                            connection.Open();
+                            string command = "insert into invoice(in_no,in_date,order_no, order_date,c_name,b_add,b_city,b_zip,b_state,b_country,s_add,s_city,s_zip,s_state,s_country,sales_person,contact_name,item_code,item_name,qty,unit,price,disc,disc_amount,total,disamount,cgst,cgst_amt,sgst,sgst_amt,notes,extra_discount,net_amount,receive_amount,type) values('" + textBox2.Text + "','" + dateTimePicker1.Text + "','" + comboBox1.Text + "','" + dateTimePicker2.Text + "','" + comboBox2.Text + "','" + textBox5.Text + "','" + textBox6.Text + "','" + textBox7.Text + "','" + textBox8.Text + "','" + textBox9.Text + "','" + textBox12.Text + "','" + textBox11.Text + "','" + textBox10.Text + "','" + textBox14.Text + "','" + textBox13.Text + "','" + comboBox3.Text + "','" + textBox15.Text + "',@item_code,@item_name,@qty,@unit,@price,@disc,@disc_amount,@total,@dismount,@cgst,@cgst_amt,@sgst,@sgst_amt,'" + textBox16.Text + "',@extra_discount,'" + textBox19.Text + "','" + textBox20.Text + "',@type) ";
+                            OleDbCommand cmdd = new OleDbCommand(command, connection);
+                            cmdd.Parameters.AddWithValue("@item_code", row.Cells[0].Value);
+                            cmdd.Parameters.AddWithValue("@item_name", row.Cells[1].Value);
+                            cmdd.Parameters.AddWithValue("@qty", row.Cells[2].Value);
+                            cmdd.Parameters.AddWithValue("@unit", row.Cells[3].Value);
+                            cmdd.Parameters.AddWithValue("@price", row.Cells[4].Value);
+                            cmdd.Parameters.AddWithValue("@disc", row.Cells[5].Value);
+                            cmdd.Parameters.AddWithValue("@disc_amount", row.Cells[6].Value);
+                            cmdd.Parameters.AddWithValue("@total", row.Cells[7].Value);
+                            cmdd.Parameters.AddWithValue("@disamount", row.Cells[8].Value);
+                            cmdd.Parameters.AddWithValue("@cgst", row.Cells[9].Value);
+                            cmdd.Parameters.AddWithValue("@cgst_amt", row.Cells[10].Value);
+                            cmdd.Parameters.AddWithValue("@sgst", row.Cells[11].Value);
+                            cmdd.Parameters.AddWithValue("@sgst_amt", row.Cells[12].Value);
+                            cmdd.Parameters.AddWithValue("@extra_discount", textBox21.Text);
+                            cmdd.Parameters.AddWithValue("@type", "in");
+                            cmdd.ExecuteNonQuery();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
+                            invoice.code = row.Cells[0].Value.ToString();
+                            stock_check st = new stock_check();
+                            st.getstock();
+                            invoice.code = row.Cells[0].Value.ToString();
+                            invoice.qty = Convert.ToString(stock_check.stock - Convert.ToDouble(row.Cells[2].Value.ToString()));
+                            insert_update_invoice up = new insert_update_invoice();
+                            up.update_stock();
+
+                            // update id 
+                            int idd = 1;
+                            tax = get_id.invoice_id + 1;
+
+                            try
+                            {
+                                if (connection.State == ConnectionState.Open)
+                                {
+                                    connection.Close();
+                                }
+                                connection.Open();
+                                OleDbCommand command2 = new OleDbCommand(@"UPDATE get_id
                                                     SET invoice_id = @p_order_no
                                                        WHERE ID = " + idd + "", connection);
 
-                            command2.Parameters.AddWithValue("@p_order_no", tax);
-                            command2.ExecuteNonQuery();
-                            connection.Close();
+                                command2.Parameters.AddWithValue("@p_order_no", tax);
+                                command2.ExecuteNonQuery();
+                                if (connection.State == ConnectionState.Open)
+                                {
+                                    connection.Close();
+                                }
 
+                            }
+                            catch (Exception a)
+                            {
+                                MessageBox.Show("" + a);
+                            }
+                            gridview();
+                            grid();
+                            clear();
+                            getid();
                         }
-                        catch (Exception a)
-                        {
-                            MessageBox.Show("" + a);
-                        }
-                        gridview();
-                        grid();
-                        clear();
-                        getid();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Can't update Invoice");
                     }
                 }
-                else
+                catch (Exception u)
                 {
-                    MessageBox.Show("Can't update Invoice");
+                    MessageBox.Show("" + u);
                 }
-            }
-            catch (Exception u)
-            {
-                MessageBox.Show("" + u);
-            }
-            finally
-            {
-                connection.Close();
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
             }
         }
 
@@ -381,16 +418,19 @@ namespace WindowsFormsApplication2
         //delete row
         private void button8_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = dataGridView2.SelectedRows[0];
-
-            if (Convert.ToInt32(textBox3.Text) == 0)
+            if (dataGridView2.Rows.Count > 0)
             {
-                dataGridView2.Rows.Remove(row);
-            }
-            else
-            {
+                DataGridViewRow row = dataGridView2.SelectedRows[0];
 
-                MessageBox.Show("You Can not Access.");
+                if (Convert.ToInt32(textBox3.Text) == 0)
+                {
+                    dataGridView2.Rows.Remove(row);
+                }
+                else
+                {
+
+                    MessageBox.Show("You Can not Access.");
+                }
             }
         }
         //select item
@@ -432,7 +472,10 @@ namespace WindowsFormsApplication2
                         cmd.Parameters.AddWithValue("@item_code", sale_item.item_code);
                         try
                         {
-                            connection.Close();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                             connection.Open();
                             rdr = cmd.ExecuteReader();
                             if (rdr.Read())
@@ -466,7 +509,10 @@ namespace WindowsFormsApplication2
                         }
                         finally
                         {
-                            connection.Close();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
 
                     }
@@ -520,26 +566,34 @@ namespace WindowsFormsApplication2
         //---------------delect Code---------------
         private void button4_Click(object sender, EventArgs e)
         {
-
-            DataGridViewRow newDataRow = dataGridView1.Rows[selectedrow];
-            DataGridViewRow row = dataGridView1.Rows[selectedrow];
-            string cf = row.Cells[0].Value.ToString();
-            int cd = Convert.ToInt32(cf);
-            if (cd > 0)
+            if (dataGridView1.Rows.Count > 0)
             {
-
-                connection.Open();
-                //dwelete from in_main
-                OleDbCommand cmdd = new OleDbCommand("Delete from in_main where (in_no =@item_code) and (type='in')", connection);
-                cmdd.Parameters.AddWithValue("@item_code", row.Cells[0].Value);
-                cmdd.ExecuteNonQuery();
-                //delete from invoice
-                OleDbCommand cmd = new OleDbCommand("Delete from invoice where (in_no =@item_code) and (type='in')", connection);
-                cmd.Parameters.AddWithValue("@item_code", row.Cells[0].Value);
-                cmd.ExecuteNonQuery();
-                connection.Close();
-                gridview();
-                grid();
+                DataGridViewRow row = dataGridView1.Rows[selectedrow];
+                string cf = row.Cells[0].Value.ToString();
+                int cd = Convert.ToInt32(cf);
+                if (cd > 0)
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                    connection.Open();
+                    //dwelete from in_main
+                    OleDbCommand cmdd = new OleDbCommand("Delete from in_main where (in_no =@item_code) and (type='in')", connection);
+                    cmdd.Parameters.AddWithValue("@item_code", row.Cells[0].Value);
+                    cmdd.ExecuteNonQuery();
+                    //delete from invoice
+                    OleDbCommand cmd = new OleDbCommand("Delete from invoice where (in_no =@item_code) and (type='in')", connection);
+                    cmd.Parameters.AddWithValue("@item_code", row.Cells[0].Value);
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                    gridview();
+                    grid();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
             }
         }
 
@@ -549,11 +603,14 @@ namespace WindowsFormsApplication2
         {
             try
             {
-
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
-                string query = " select order_no from sales_order";
+                string query = "select order_no from sales_order";
                 command.CommandText = query;
                 OleDbDataAdapter da = new OleDbDataAdapter(command);
                 DataSet ds = new DataSet();
@@ -561,7 +618,10 @@ namespace WindowsFormsApplication2
                 comboBox1.DisplayMember = "order_no";
                 comboBox1.ValueMember = "order_no";
                 comboBox1.DataSource = ds.Tables["Sales"];
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
             catch (Exception o)
             {
@@ -576,6 +636,10 @@ namespace WindowsFormsApplication2
         {
             try
             {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -587,7 +651,10 @@ namespace WindowsFormsApplication2
                 comboBox2.DisplayMember = "C_name";
                 comboBox2.ValueMember = "c_code";
                 comboBox2.DataSource = ds.Tables["Customer"];
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
 
             }
             catch (Exception p)
@@ -603,10 +670,14 @@ namespace WindowsFormsApplication2
         {
             try
             {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
-                string query = " select ID,p_name from tb_p";
+                string query = "select ID,p_name from tb_p";
                 command.CommandText = query;
                 OleDbDataAdapter da = new OleDbDataAdapter(command);
                 DataSet ds = new DataSet();
@@ -623,7 +694,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -631,7 +705,10 @@ namespace WindowsFormsApplication2
         {
             if (comboBox1.SelectedValue.ToString().Length > 0)
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 OleDbDataReader rdr = null;
                 OleDbCommand cmd = new OleDbCommand("select * from sales_order where order_no =@item_code", connection);
                 cmd.Parameters.AddWithValue("@item_code", comboBox1.SelectedValue.ToString());
@@ -653,7 +730,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     double net = 0.000;
                     for (int i = 0; i < dataGridView2.Rows.Count; ++i)
                     {
@@ -685,7 +765,10 @@ namespace WindowsFormsApplication2
                 cmd.Parameters.AddWithValue("@id", comboBox2.SelectedValue.ToString());
                 try
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     rdr = cmd.ExecuteReader();
                     if (rdr.Read())
@@ -721,7 +804,6 @@ namespace WindowsFormsApplication2
         }
         private void comboBox2_Click(object sender, EventArgs e)
         {
-
             scomb();
         }
 
@@ -733,115 +815,126 @@ namespace WindowsFormsApplication2
    
         private void button9_Click(object sender, EventArgs e)
         {
-              string in_no= "";
-            // insert query into payment Receipt
-              DataGridViewRow newDataRow = dataGridView1.Rows[selectedrow];
-            DataGridViewRow row = dataGridView1.Rows[selectedrow];
-          // check if the invoice no is already exist or not
-            try
+            if (dataGridView1.Rows.Count > 0)
             {
-                connection.Close();
-                connection.Open();
-
-                OleDbDataReader rdr = null;
-                OleDbCommand cmd = new OleDbCommand("select * from payment_receipt where invoice_type = 'Invoice' AND in_no = '" + row.Cells[0].Value + "' ", connection);
-                rdr = cmd.ExecuteReader();
-                if (rdr.Read())
-                {
-                    in_no = Convert.ToString(rdr["in_no"]);
-                    
-                }
-            }
-            catch (Exception o)
-            {
-                MessageBox.Show("getid" + o);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            if (in_no == row.Cells[0].Value.ToString())
-            {
-                MessageBox.Show("Already exist");
-            }
-            else
-            {
+                string in_no = "";
+                // insert query into payment Receipt
+                DataGridViewRow row = dataGridView1.Rows[selectedrow];
+                // check if the invoice no is already exist or not
                 try
                 {
-                    string bla = "";
-                    bla = "1";
-
-                    get_id gi = new get_id();
-                    gi.taxinvoice();
-                    int receipt_no = get_id.pay_re;
-                   
-
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
-                    string command = "insert into payment_receipt(re_no,re_date,payment_type,invoice_type,ref_no,ref_date,in_no,in_date,c_name,total_amount,due_amount,receive_amount,total_receive,c_code) values(@re_no,@re_date,@payment_type,@invoice_type,@ref_no,@ref_date,@in_no,@in_date,@c_name,@in_amount,@due_amount,@receive_amount,@total_receive,@c_code) ";
-                    OleDbCommand cmdd = new OleDbCommand(command, connection);
-                    cmdd.Parameters.AddWithValue("@re_no", receipt_no);
-                    cmdd.Parameters.AddWithValue("@re_date", dateTimePicker2.Text);
-                    cmdd.Parameters.AddWithValue("@payment_type", "Against Invoice");
-                    cmdd.Parameters.AddWithValue("@invoice_type", "Invoice");
-                    cmdd.Parameters.AddWithValue("@re_no", receipt_no);
-                    cmdd.Parameters.AddWithValue("@re_date", dateTimePicker2.Text);
-                    cmdd.Parameters.AddWithValue("@in_no", row.Cells[0].Value);
-                    cmdd.Parameters.AddWithValue("@in_date", row.Cells[1].Value);
-                    cmdd.Parameters.AddWithValue("@c_name", row.Cells[4].Value);
-                    cmdd.Parameters.AddWithValue("@in_amount", row.Cells[5].Value);
-                    cmdd.Parameters.AddWithValue("@due_amount", row.Cells[7].Value);
-                    string receive = Convert.ToString(Convert.ToDouble(row.Cells[5].Value.ToString()) - Convert.ToDouble(row.Cells[7].Value.ToString()));
-                    cmdd.Parameters.AddWithValue("@receive_amount", receive);
-                    cmdd.Parameters.AddWithValue("@total_receive", receive);
-                    cmdd.Parameters.AddWithValue("@c_code", row.Cells[8].Value);
-                    cmdd.ExecuteNonQuery();
 
-                    //update into id
-                    int df = get_id.pay_re+1;
-                    OleDbCommand command1 = new OleDbCommand(@"UPDATE get_id
-                                                    SET pay_re = @City_Name
-                                                       
-                                                    WHERE ID = " + bla + "", connection);
-
-                    command1.Parameters.AddWithValue("@City_Name", df);
-
-                    command1.ExecuteNonQuery();
-
-
+                    OleDbDataReader rdr = null;
+                    OleDbCommand cmd = new OleDbCommand("select * from payment_receipt where invoice_type = 'Invoice' AND in_no = '" + row.Cells[0].Value + "' ", connection);
+                    rdr = cmd.ExecuteReader();
+                    if (rdr.Read())
+                    {
+                        in_no = Convert.ToString(rdr["in_no"]);
+                    }
                 }
-                catch (Exception p)
+                catch (Exception o)
                 {
-                    MessageBox.Show("" + p);
+                    MessageBox.Show("getid" + o);
                 }
                 finally
                 {
                     connection.Close();
+                }
 
-                    payment_re ts = new payment_re();
-                    ts.ShowDialog();
+                if (in_no == row.Cells[0].Value.ToString())
+                {
+                    MessageBox.Show("Already exist");
+                }
+                else
+                {
+                    try
+                    {
+                        string bla = "";
+                        bla = "1";
+
+                        get_id gi = new get_id();
+                        gi.taxinvoice();
+                        int receipt_no = get_id.pay_re;
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                        connection.Open();
+                        string command = "insert into payment_receipt(re_no,re_date,payment_type,invoice_type,ref_no,ref_date,in_no,in_date,c_name,total_amount,due_amount,receive_amount,total_receive,c_code) values(@re_no,@re_date,@payment_type,@invoice_type,@ref_no,@ref_date,@in_no,@in_date,@c_name,@in_amount,@due_amount,@receive_amount,@total_receive,@c_code) ";
+                        OleDbCommand cmdd = new OleDbCommand(command, connection);
+                        cmdd.Parameters.AddWithValue("@re_no", receipt_no);
+                        cmdd.Parameters.AddWithValue("@re_date", dateTimePicker2.Text);
+                        cmdd.Parameters.AddWithValue("@payment_type", "Against Invoice");
+                        cmdd.Parameters.AddWithValue("@invoice_type", "Invoice");
+                        cmdd.Parameters.AddWithValue("@re_no", receipt_no);
+                        cmdd.Parameters.AddWithValue("@re_date", dateTimePicker2.Text);
+                        cmdd.Parameters.AddWithValue("@in_no", row.Cells[0].Value);
+                        cmdd.Parameters.AddWithValue("@in_date", row.Cells[1].Value);
+                        cmdd.Parameters.AddWithValue("@c_name", row.Cells[4].Value);
+                        cmdd.Parameters.AddWithValue("@in_amount", row.Cells[5].Value);
+                        cmdd.Parameters.AddWithValue("@due_amount", row.Cells[7].Value);
+                        string receive = Convert.ToString(Convert.ToDouble(row.Cells[5].Value.ToString()) - Convert.ToDouble(row.Cells[7].Value.ToString()));
+                        cmdd.Parameters.AddWithValue("@receive_amount", receive);
+                        cmdd.Parameters.AddWithValue("@total_receive", receive);
+                        cmdd.Parameters.AddWithValue("@c_code", row.Cells[8].Value);
+                        cmdd.ExecuteNonQuery();
+
+                        //update into id
+                        int df = get_id.pay_re + 1;
+                        OleDbCommand command1 = new OleDbCommand(@"UPDATE get_id
+                                                    SET pay_re = @City_Name
+                                                       
+                                                    WHERE ID = " + bla + "", connection);
+
+                        command1.Parameters.AddWithValue("@City_Name", df);
+
+                        command1.ExecuteNonQuery();
+
+
+                    }
+                    catch (Exception p)
+                    {
+                        MessageBox.Show("" + p);
+                    }
+                    finally
+                    {
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+
+                        payment_re ts = new payment_re();
+                        ts.ShowDialog();
+                    }
                 }
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            DataGridViewRow newDataRow = dataGridView1.Rows[selectedrow];
-            DataGridViewRow row = dataGridView1.Rows[selectedrow];
-
-            if (row.Cells[6].Value.ToString() == "Paid")
+            if (dataGridView1.Rows.Count > 0)
             {
-                invoice_print.c_name = row.Cells[8].Value.ToString();
-                invoice_print.in_no = row.Cells[0].Value.ToString();
+                DataGridViewRow row = dataGridView1.Rows[selectedrow];
 
-                invoice_print ip = new invoice_print();
-                ip.ShowDialog();
+                if (row.Cells[6].Value.ToString() == "Paid")
+                {
+                    invoice_print.c_name = row.Cells[8].Value.ToString();
+                    invoice_print.in_no = row.Cells[0].Value.ToString();
+
+                    invoice_print ip = new invoice_print();
+                    ip.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Amount not Paid");
+                }
             }
-            else
-            {
-                MessageBox.Show("Amount not Paid");
-            }
+            
         }
 
         private void invoice_Load(object sender, EventArgs e)
@@ -857,7 +950,10 @@ namespace WindowsFormsApplication2
 
             try
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
@@ -871,7 +967,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }
@@ -880,11 +979,8 @@ namespace WindowsFormsApplication2
         {
             try
             {
-                
                     double Fdiscount = (Convert.ToDouble(textBox18.Text) / 100) * Convert.ToDouble(textBox21.Text);
                     textBox19.Text = Convert.ToString(Convert.ToDouble(textBox18.Text) - Fdiscount);
-                
-
             }
             catch (Exception)
             {
