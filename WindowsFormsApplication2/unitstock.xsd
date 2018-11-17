@@ -31,7 +31,7 @@
   <xs:element name="unitstock" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="unitstock" msprop:Generator_UserDSName="unitstock">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="unit" msprop:Generator_TableClassName="unitDataTable" msprop:Generator_TableVarName="tableunit" msprop:Generator_TablePropName="unit" msprop:Generator_RowDeletingName="unitRowDeleting" msprop:Generator_RowChangingName="unitRowChanging" msprop:Generator_RowEvHandlerName="unitRowChangeEventHandler" msprop:Generator_RowDeletedName="unitRowDeleted" msprop:Generator_UserTableName="unit" msprop:Generator_RowChangedName="unitRowChanged" msprop:Generator_RowEvArgName="unitRowChangeEvent" msprop:Generator_RowClassName="unitRow">
+        <xs:element name="unit" msprop:Generator_TableClassName="unitDataTable" msprop:Generator_TableVarName="tableunit" msprop:Generator_RowChangedName="unitRowChanged" msprop:Generator_TablePropName="unit" msprop:Generator_RowDeletingName="unitRowDeleting" msprop:Generator_RowChangingName="unitRowChanging" msprop:Generator_RowEvHandlerName="unitRowChangeEventHandler" msprop:Generator_RowDeletedName="unitRowDeleted" msprop:Generator_RowClassName="unitRow" msprop:Generator_UserTableName="unit" msprop:Generator_RowEvArgName="unitRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="unit_name" msprop:Generator_ColumnVarNameInTable="columnunit_name" msprop:Generator_ColumnPropNameInRow="unit_name" msprop:Generator_ColumnPropNameInTable="unit_nameColumn" msprop:Generator_UserColumnName="unit_name" minOccurs="0">

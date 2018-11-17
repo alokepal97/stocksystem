@@ -35,7 +35,7 @@ namespace WindowsFormsApplication2
             OleDbCommand cmd = new OleDbCommand("select * from customer", connection);
             try
             {
-                if (connection.State == System.Data.ConnectionState.Open)
+                if (connection.State == ConnectionState.Open)
                 {
                     connection.Close();
                 }
@@ -52,7 +52,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -132,7 +135,7 @@ namespace WindowsFormsApplication2
                     {
                         if (checkBox1.Checked == true)
                         {
-                            if (connection.State == System.Data.ConnectionState.Open)
+                            if (connection.State == ConnectionState.Open)
                             {
                                 connection.Close();
                             }
@@ -144,6 +147,10 @@ namespace WindowsFormsApplication2
                             ResetForm();
                             grid();
                             gridview();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
                         else
                         {
@@ -159,6 +166,10 @@ namespace WindowsFormsApplication2
                             ResetForm();
                             grid();
                             gridview();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
 
                     }
@@ -252,14 +263,15 @@ namespace WindowsFormsApplication2
                             try
                             {
                                 command.ExecuteNonQuery();
-
+                                if (connection.State == ConnectionState.Open)
+                                {
+                                    connection.Close();
+                                }
                                 MessageBox.Show("DATA UPDATED");
                                 ResetForm();
                                 grid();
                                 gridview();
                                 this.tabControl1.SelectedTab = tabPage1;
-
-
                             }
                             catch (Exception)
                             {
@@ -267,7 +279,10 @@ namespace WindowsFormsApplication2
                             }
                             finally
                             {
-                                connection.Close();
+                                if (connection.State == ConnectionState.Open)
+                                {
+                                    connection.Close();
+                                }
                             }
 
                         }
@@ -343,7 +358,7 @@ namespace WindowsFormsApplication2
 
                             try
                             {
-                                if (connection.State == System.Data.ConnectionState.Open)
+                                if (connection.State == ConnectionState.Open)
                                 {
                                     connection.Close();
                                 }
@@ -356,7 +371,10 @@ namespace WindowsFormsApplication2
                             try
                             {
                                 command.ExecuteNonQuery();
-
+                                if (connection.State == ConnectionState.Open)
+                                {
+                                    connection.Close();
+                                }
                                 MessageBox.Show("DATA UPDATED");
                                 ResetForm();
                                 grid();
@@ -369,7 +387,10 @@ namespace WindowsFormsApplication2
                             }
                             finally
                             {
-                                connection.Close();
+                                if (connection.State == ConnectionState.Open)
+                                {
+                                    connection.Close();
+                                }
                             }
                         }
                     }
@@ -381,7 +402,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
 
             }
@@ -522,8 +546,10 @@ namespace WindowsFormsApplication2
                 city_name.DisplayMember = "city_name";
                 city_name.ValueMember = "ID";
                 city_name.DataSource = ds.Tables["city"];
-                connection.Close();
-
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
             catch (Exception p)
             {
@@ -540,14 +566,12 @@ namespace WindowsFormsApplication2
         {
             if (city_name.SelectedValue != null)
             {
-
-
                 OleDbDataReader rdr = null;
                 OleDbCommand cmd = new OleDbCommand("select * from city where (ID = @id)", connection);
                 cmd.Parameters.AddWithValue("@id", city_name.SelectedValue.ToString());
                 try
                 {
-                    if (connection.State == System.Data.ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -567,7 +591,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }
@@ -656,7 +683,10 @@ namespace WindowsFormsApplication2
                 comboBox1.DisplayMember = "country";
                 comboBox1.ValueMember = "country";
                 comboBox1.DataSource = ds.Tables["country"];
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
 
             }
             catch (Exception p)
@@ -696,7 +726,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }

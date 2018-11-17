@@ -195,7 +195,10 @@ namespace WindowsFormsApplication2
 
                         cmdd.ExecuteNonQuery();
                     }
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     //update order id and ref no by 1
                     int order_no = 0;
                     int reference_no = 0;
@@ -217,7 +220,10 @@ namespace WindowsFormsApplication2
                         }
                         connection.Open();
                         command.ExecuteNonQuery();
-                        connection.Close();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                     }
                     catch(Exception a)
                     {
@@ -228,12 +234,14 @@ namespace WindowsFormsApplication2
                     grid();
                     gridview();
                     getid();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Cannot Access");
-
-
                 }
             }
 
@@ -291,7 +299,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
 
             }
@@ -338,11 +349,12 @@ namespace WindowsFormsApplication2
                         //-------------disply into datagridview1---------------------
                         dataGridView1.Rows.Add(Convert.ToString(no), Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_name"]), Convert.ToString(rdr["unit"]), Convert.ToString(rdr["qty"]), Convert.ToString(rdr["purchase_price"]), Convert.ToString(rdr["dis_on_p"]), Convert.ToString(rdr["cgst"]), Convert.ToString(rdr["sgst"]), Convert.ToString(rdr["total_amount"]));
                         // other code
-
-
                     }
-                        connection.Close();
-                    double subtotal = 0;
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                        double subtotal = 0;
                     for (int i = 0; i < dataGridView1.Rows.Count; ++i)
                     {
                         if (dataGridView1.Rows[i].Cells[5].Value.ToString().Length > 0)
@@ -464,7 +476,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }
@@ -531,7 +546,7 @@ namespace WindowsFormsApplication2
             dateTimePicker1.ResetText();
             dateTimePicker2.ResetText();
             textBox3.Text = "0";
-
+            textBox10.Text = textBox11.Text = textBox12.Text = textBox13.Text = textBox14.Text = null; 
             try
             {
 
@@ -543,6 +558,7 @@ namespace WindowsFormsApplication2
             {
                 MessageBox.Show("" + g);
             }
+            getid();
         }
 
         private void button1_Click(object sender, EventArgs e)

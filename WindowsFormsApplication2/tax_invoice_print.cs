@@ -46,7 +46,7 @@ namespace WindowsFormsApplication2
             }
            try
             {
-                OleDbDataAdapter sda = new OleDbDataAdapter("select item_code,item_name,qty,unit,price,disc,disamount from tax_invoice where(in_no = '" + in_no + "')", connection);
+                OleDbDataAdapter sda = new OleDbDataAdapter("select item_code,item_name,qty,unit,price,disc,disamount from invoice where(in_no = '" + in_no + "')", connection);
                 DataSet dsd = new DataSet();
                 sda.Fill(dsd, "invoice_p");
                 cryrpt.SetDataSource(dsd);
@@ -108,9 +108,6 @@ namespace WindowsFormsApplication2
             DataSet ds4 = dblayer.gst();
             foreach (DataRow dr in ds4.Tables[0].Rows)
             {
-
-
-
                 cryrpt.SetParameterValue("gst_no", dr["c_gst"].ToString());
                 crystalReportViewer1.ReportSource = cryrpt;
 

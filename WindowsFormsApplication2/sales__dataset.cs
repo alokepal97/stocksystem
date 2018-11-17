@@ -19,6 +19,10 @@ namespace WindowsFormsApplication2
         {
             connection con = new connection();
             connection.ConnectionString = con.ConnectionString;
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             connection.Open();
             string command = "select * from invoice where(in_no = @in) and (type=@type)";
             OleDbCommand cmdd = new OleDbCommand(command, connection);
@@ -27,14 +31,21 @@ namespace WindowsFormsApplication2
             OleDbDataAdapter da = new OleDbDataAdapter(cmdd);
             DataSet ds = new DataSet();
             da.Fill(ds);
-            connection.Close();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             return ds;
            
 
         }
         public DataSet Invoice_main()
         {
-            
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+            connection.Open();
             string command = "select * from in_main where(in_no = @in) and (type=@type)";
             OleDbCommand cmdd = new OleDbCommand(command, connection);
             cmdd.Parameters.AddWithValue("@in", invoice_print.in_no);
@@ -42,6 +53,10 @@ namespace WindowsFormsApplication2
             OleDbDataAdapter da = new OleDbDataAdapter(cmdd);
             DataSet ds2 = new DataSet();
             da.Fill(ds2);
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             return ds2;
 
         }
@@ -51,15 +66,22 @@ namespace WindowsFormsApplication2
             
                 connection con = new connection();
                 connection.ConnectionString = con.ConnectionString;
-                connection.Open();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+            connection.Open();
                 string command = "SELECT C_name, b_add, b_city, b_zip, b_state, b_country FROM customer WHERE  (c_code = @Cust_id) ";
                 OleDbCommand cmdd = new OleDbCommand(command, connection);
                 cmdd.Parameters.AddWithValue("@Cust_id", invoice_print.c_name);
                 OleDbDataAdapter da = new OleDbDataAdapter(cmdd);
                 DataSet ds3 = new DataSet();
                 da.Fill(ds3);
+            if (connection.State == ConnectionState.Open)
+            {
                 connection.Close();
-                return ds3;
+            }
+            return ds3;
             
             
 
@@ -68,6 +90,10 @@ namespace WindowsFormsApplication2
         {
             connection con = new connection();
             connection.ConnectionString = con.ConnectionString;
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             connection.Open();
             string command = "select * from invoice where(in_no = @in) and (type=@type)";
             OleDbCommand cmdd = new OleDbCommand(command, connection);
@@ -76,26 +102,37 @@ namespace WindowsFormsApplication2
             OleDbDataAdapter da = new OleDbDataAdapter(cmdd);
             DataSet ds = new DataSet();
             da.Fill(ds);
-            connection.Close();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             return ds;
 
         }
 
-        public DataSet invoice(string invid)
+        public DataSet invoice(string invid, string type)
         {
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+            connection.Open();
             string command = "select * from invoice where(in_no = @in) and (type=@type)";
             OleDbCommand cmdd = new OleDbCommand(command, connection);
             cmdd.Parameters.AddWithValue("@in", invid);
-            cmdd.Parameters.AddWithValue("@type", invid);
+            cmdd.Parameters.AddWithValue("@type", type);
             OleDbDataAdapter da = new OleDbDataAdapter(cmdd);
             DataSet ds2 = new DataSet();
             da.Fill(ds2);
-            connection.Close();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             return ds2;
         }         
         public DataSet tax_Invoice_main()
         {
-
+            connection.Open();
             string command = "select * from in_main where(in_no = @in) and (type=@type)";
             OleDbCommand cmdd = new OleDbCommand(command, connection);
             cmdd.Parameters.AddWithValue("@in", invoice_print.in_no);
@@ -103,7 +140,10 @@ namespace WindowsFormsApplication2
             OleDbDataAdapter da = new OleDbDataAdapter(cmdd);
             DataSet ds2 = new DataSet();
             da.Fill(ds2);
-            connection.Close();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             return ds2;
 
         }
@@ -113,6 +153,10 @@ namespace WindowsFormsApplication2
 
             connection con = new connection();
             connection.ConnectionString = con.ConnectionString;
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             connection.Open();
             string command = "select p_no, p_date, d_date, s_name, amount from purchase_main where(p_no = @p_no)";
             OleDbCommand cmdd1 = new OleDbCommand(command, connection);
@@ -120,11 +164,13 @@ namespace WindowsFormsApplication2
             OleDbDataAdapter da = new OleDbDataAdapter(cmdd1);
             DataSet ds4 = new DataSet();
             da.Fill(ds4);
-            connection.Close();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             return ds4;
-
         }
-
+        
 
     }
 }

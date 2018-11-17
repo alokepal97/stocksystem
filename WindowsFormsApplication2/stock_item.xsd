@@ -32,7 +32,7 @@
   <xs:element name="stock_item" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="stock_item" msprop:Generator_UserDSName="stock_item">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="item" msprop:Generator_TableClassName="itemDataTable" msprop:Generator_TableVarName="tableitem" msprop:Generator_TablePropName="item" msprop:Generator_RowDeletingName="itemRowDeleting" msprop:Generator_RowChangingName="itemRowChanging" msprop:Generator_RowEvHandlerName="itemRowChangeEventHandler" msprop:Generator_RowDeletedName="itemRowDeleted" msprop:Generator_UserTableName="item" msprop:Generator_RowChangedName="itemRowChanged" msprop:Generator_RowEvArgName="itemRowChangeEvent" msprop:Generator_RowClassName="itemRow">
+        <xs:element name="item" msprop:Generator_TableClassName="itemDataTable" msprop:Generator_TableVarName="tableitem" msprop:Generator_RowChangedName="itemRowChanged" msprop:Generator_TablePropName="item" msprop:Generator_RowDeletingName="itemRowDeleting" msprop:Generator_RowChangingName="itemRowChanging" msprop:Generator_RowEvHandlerName="itemRowChangeEventHandler" msprop:Generator_RowDeletedName="itemRowDeleted" msprop:Generator_RowClassName="itemRow" msprop:Generator_UserTableName="item" msprop:Generator_RowEvArgName="itemRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="item_code" msprop:Generator_ColumnVarNameInTable="columnitem_code" msprop:Generator_ColumnPropNameInRow="item_code" msprop:Generator_ColumnPropNameInTable="item_codeColumn" msprop:Generator_UserColumnName="item_code" minOccurs="0">

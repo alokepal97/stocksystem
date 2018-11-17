@@ -47,7 +47,7 @@ namespace WindowsFormsApplication2
         {
             try
             {
-                if(connection.State == ConnectionState.Open)
+                if (connection.State == ConnectionState.Open)
                 {
                     connection.Close();
                 }
@@ -182,7 +182,7 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    if(connection.State == ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -464,7 +464,7 @@ namespace WindowsFormsApplication2
                             string value = rdr["receive_qty"].ToString();
                             int var = newvalue - oldvalue;
                             Decimal s = Convert.ToDecimal(value);
-                            Decimal qty = Convert.ToDecimal(var);                      
+                            Decimal qty = Convert.ToDecimal(var);
                             s = s + qty;
                             OleDbCommand command = new OleDbCommand(@"UPDATE stock
                                                     SET receive_qty = @City_Name                                                       
@@ -514,7 +514,7 @@ namespace WindowsFormsApplication2
                             connection.Close();
                         }
                         connection.Open();
-                        
+
                         OleDbCommand cmdd = new OleDbCommand("Delete from main_receipt where ID = @id", connection);
                         cmdd.Parameters.AddWithValue("@id", row.Cells[0].Value);
                         cmdd.ExecuteNonQuery();
@@ -546,7 +546,6 @@ namespace WindowsFormsApplication2
         {
             try
             {
-
                 dataGridView2.Rows.Clear();
             }
             catch (Exception)
@@ -572,10 +571,9 @@ namespace WindowsFormsApplication2
             textBox4.Text = textBox5.Text = null;
             dateTimePicker1.ResetText();
             dateTimePicker2.ResetText();
-
+            getid();
             try
             {
-
                 dataGridView1.Rows.Clear();
             }
             catch (Exception)
@@ -584,7 +582,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 

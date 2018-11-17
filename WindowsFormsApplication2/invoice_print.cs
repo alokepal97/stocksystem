@@ -32,7 +32,6 @@ namespace WindowsFormsApplication2
        
         public static string in_no = "";
         public static string c_name = "";
-
           sales__dataset dblayer = new sales__dataset();
         private void invoice_print_Load(object sender, EventArgs e)
         {
@@ -47,7 +46,6 @@ namespace WindowsFormsApplication2
             }
         //    List<sales__invoice_setcs> _List = new List<sales__invoice_setcs>();
 
-
             try
             {
                 OleDbDataAdapter sda = new OleDbDataAdapter("select item_code,item_name,qty,unit,price,disc,disamount from invoice where(in_no = '" + in_no + "')", connection);
@@ -56,7 +54,10 @@ namespace WindowsFormsApplication2
                 cryrpt.SetDataSource(ds);
                 crystalReportViewer1.ReportSource = cryrpt;
                 crystalReportViewer1.Refresh();
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
             catch (Exception o)
             {
@@ -94,6 +95,20 @@ namespace WindowsFormsApplication2
                     cryrpt.SetParameterValue("or_no", dr["or_no"].ToString());
                     cryrpt.SetParameterValue("or_date", dr["or_date"].ToString());
                     cryrpt.SetParameterValue("grand_total", dr["amount"].ToString());
+                    cryrpt.SetParameterValue("subTotal", dr["amount"].ToString());
+                    crystalReportViewer1.ReportSource = cryrpt;
+                }
+                catch
+                {
+                    MessageBox.Show("Try Again Later");
+                }
+            }
+            DataSet ds5 = dblayer.invoice(in_no, "in");
+            foreach (DataRow dr in ds5.Tables[0].Rows)
+            {
+                try
+                {
+                    cryrpt.SetParameterValue("discount_per", dr["extra_discount"].ToString());
                     crystalReportViewer1.ReportSource = cryrpt;
                 }
                 catch
@@ -102,7 +117,7 @@ namespace WindowsFormsApplication2
                 }
             }
 
-           }
+        }
         }
     }
 

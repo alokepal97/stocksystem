@@ -77,7 +77,7 @@
   <xs:element name="stockDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="stockDataSet" msprop:Generator_UserDSName="stockDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="city" msprop:Generator_TableClassName="cityDataTable" msprop:Generator_TableVarName="tablecity" msprop:Generator_TablePropName="city" msprop:Generator_RowDeletingName="cityRowDeleting" msprop:Generator_RowChangingName="cityRowChanging" msprop:Generator_RowEvHandlerName="cityRowChangeEventHandler" msprop:Generator_RowDeletedName="cityRowDeleted" msprop:Generator_UserTableName="city" msprop:Generator_RowChangedName="cityRowChanged" msprop:Generator_RowEvArgName="cityRowChangeEvent" msprop:Generator_RowClassName="cityRow">
+        <xs:element name="city" msprop:Generator_TableClassName="cityDataTable" msprop:Generator_TableVarName="tablecity" msprop:Generator_RowChangedName="cityRowChanged" msprop:Generator_TablePropName="city" msprop:Generator_RowDeletingName="cityRowDeleting" msprop:Generator_RowChangingName="cityRowChanging" msprop:Generator_RowEvHandlerName="cityRowChangeEventHandler" msprop:Generator_RowDeletedName="cityRowDeleted" msprop:Generator_RowClassName="cityRow" msprop:Generator_UserTableName="city" msprop:Generator_RowEvArgName="cityRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />

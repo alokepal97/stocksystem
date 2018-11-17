@@ -29,7 +29,7 @@ namespace WindowsFormsApplication2
                
                 OleDbDataReader rdr = null;
                 OleDbCommand cmd = new OleDbCommand("select * from city", connection);
-                    if (connection.State == System.Data.ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -46,7 +46,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -66,7 +69,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }
@@ -132,6 +138,10 @@ namespace WindowsFormsApplication2
 
                         OleDbCommand cmdd = new OleDbCommand(command, connection);
                         cmdd.ExecuteNonQuery();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                         ResetForm();
                         // MessageBox.Show("Data Inserted");
                         grid();
@@ -184,6 +194,10 @@ namespace WindowsFormsApplication2
                         }
                         finally
                         {
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
                     }
                 }
@@ -194,7 +208,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             else
@@ -220,7 +237,10 @@ namespace WindowsFormsApplication2
                 //  MessageBox.Show("DATA Deleted Sucessfully");
                 grid();
                 gridview();
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
             
         }
@@ -328,7 +348,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }

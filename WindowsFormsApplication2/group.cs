@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
 
@@ -20,11 +21,11 @@ namespace WindowsFormsApplication2
         private void grid()
         {
             OleDbDataReader rdr = null;
-            OleDbCommand cmd = new OleDbCommand("select * from grou", connection);
+            OleDbCommand cmd = new OleDbCommand("select ID, name from grou", connection);
 
             try
             {
-                if (connection.State == System.Data.ConnectionState.Open)
+                if (connection.State == ConnectionState.Open)
                 {
                     connection.Close();
                 }
@@ -41,14 +42,16 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
 
         private void newbtn_Click(object sender, EventArgs e)
         {
-
             dataGridView1.Rows.Add();
         }
 
@@ -74,7 +77,7 @@ namespace WindowsFormsApplication2
                 }
                 else
                 {
-                    if (connection.State == System.Data.ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -82,7 +85,10 @@ namespace WindowsFormsApplication2
                     OleDbCommand cmdd = new OleDbCommand("Delete from grou where ID =@ID", connection);
                     cmdd.Parameters.AddWithValue("@ID", row.Cells[0].Value);
                     cmdd.ExecuteNonQuery();
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
 
                 MessageBox.Show("Data Deleted");
@@ -104,15 +110,14 @@ namespace WindowsFormsApplication2
 
                     //update query
                     OleDbCommand command = new OleDbCommand(@"UPDATE grou
-                                                    SET name = @City_Name
-                                                       
+                                                    SET name = @City_Name 
                                                     WHERE ID = " + id + "", connection);
 
                     command.Parameters.AddWithValue("@City_Name", dataGridView1.Rows[selectedRow].Cells[1].Value);
 
                     try
                     {
-                        if (connection.State == System.Data.ConnectionState.Open)
+                        if (connection.State == ConnectionState.Open)
                         {
                             connection.Close();
                         }
@@ -137,9 +142,11 @@ namespace WindowsFormsApplication2
                     }
                     finally
                     {
-                        connection.Close();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                     }
-
                 }
 
                 else
@@ -147,8 +154,7 @@ namespace WindowsFormsApplication2
                     try
                     {
                         //insert query
-                        connection.Close();
-                        if (connection.State == System.Data.ConnectionState.Open)
+                        if (connection.State == ConnectionState.Open)
                         {
                             connection.Close();
                         }
@@ -157,7 +163,10 @@ namespace WindowsFormsApplication2
                         OleDbCommand comm = new OleDbCommand(com, connection);
                         comm.Parameters.AddWithValue("@item_code", dataGridView1.Rows[selectedRow].Cells[1].Value);
                         comm.ExecuteNonQuery();
-                        connection.Close();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                         MessageBox.Show("Data Inserted");
                         gridview();
                         grid();

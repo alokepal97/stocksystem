@@ -96,7 +96,7 @@
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(439, 6);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 28);
             this.button5.TabIndex = 9;
@@ -107,7 +107,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(331, 6);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 28);
             this.button4.TabIndex = 8;
@@ -118,7 +118,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(223, 6);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
             this.button3.TabIndex = 7;
@@ -129,7 +129,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(115, 6);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 6;
@@ -140,7 +140,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(7, 6);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 5;
@@ -153,7 +153,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(7, 43);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1316, 575);
@@ -166,9 +166,9 @@
             this.tabPage1.Controls.Add(this.label13);
             this.tabPage1.Controls.Add(this.dataGridView2);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(1308, 546);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "All Record List";
@@ -176,7 +176,7 @@
             // textBox9
             // 
             this.textBox9.Location = new System.Drawing.Point(133, 7);
-            this.textBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(4);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(744, 22);
             this.textBox9.TabIndex = 3;
@@ -211,7 +211,7 @@
             this.Column19});
             this.dataGridView2.GridColor = System.Drawing.SystemColors.Control;
             this.dataGridView2.Location = new System.Drawing.Point(0, 43);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.Size = new System.Drawing.Size(1301, 496);
@@ -318,9 +318,9 @@
             this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage2.Size = new System.Drawing.Size(1308, 546);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Add / Modify";
@@ -342,7 +342,7 @@
             this.Column8});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView1.Location = new System.Drawing.Point(4, 175);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(1293, 185);
             this.dataGridView1.TabIndex = 30;
@@ -399,7 +399,7 @@
             // textBox8
             // 
             this.textBox8.Location = new System.Drawing.Point(427, 44);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(4);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(132, 22);
             this.textBox8.TabIndex = 29;
@@ -409,7 +409,7 @@
             // textBox7
             // 
             this.textBox7.Location = new System.Drawing.Point(835, 458);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(4);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(152, 22);
             this.textBox7.TabIndex = 28;
@@ -427,7 +427,7 @@
             // textBox6
             // 
             this.textBox6.Location = new System.Drawing.Point(835, 426);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(95, 22);
             this.textBox6.TabIndex = 26;
@@ -438,14 +438,14 @@
             this.label11.Location = new System.Drawing.Point(708, 430);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(93, 17);
+            this.label11.Size = new System.Drawing.Size(115, 17);
             this.label11.TabIndex = 25;
-            this.label11.Text = "Discount Ret.";
+            this.label11.Text = "Discount Ret.(%)";
             // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(835, 393);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(152, 22);
             this.textBox5.TabIndex = 24;
@@ -463,7 +463,7 @@
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(103, 452);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -483,7 +483,7 @@
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(148, 384);
-            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(100, 39);
             this.button7.TabIndex = 20;
@@ -494,7 +494,7 @@
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(20, 384);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(120, 39);
             this.button6.TabIndex = 19;
@@ -504,8 +504,8 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(788, 107);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Location = new System.Drawing.Point(788, 108);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(141, 22);
             this.textBox3.TabIndex = 16;
@@ -523,8 +523,8 @@
             // dateTimePicker2
             // 
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(788, 74);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker2.Location = new System.Drawing.Point(788, 77);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(125, 22);
             this.dateTimePicker2.TabIndex = 14;
@@ -543,7 +543,7 @@
             // 
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(788, 41);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(160, 24);
             this.comboBox3.TabIndex = 12;
@@ -567,7 +567,7 @@
             "Invoice",
             "Tax Invoice"});
             this.comboBox2.Location = new System.Drawing.Point(788, 7);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(160, 24);
             this.comboBox2.TabIndex = 10;
@@ -587,7 +587,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(148, 146);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(115, 21);
             this.checkBox1.TabIndex = 8;
@@ -597,7 +597,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(128, 112);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(152, 22);
             this.textBox2.TabIndex = 7;
@@ -616,7 +616,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(128, 75);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(288, 24);
             this.comboBox1.TabIndex = 5;
@@ -637,7 +637,7 @@
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(128, 43);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(132, 22);
             this.dateTimePicker1.TabIndex = 3;
@@ -655,7 +655,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(128, 9);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(132, 22);
@@ -683,7 +683,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "sales_return";
             this.Text = "Sales Return Note";
             this.Load += new System.EventHandler(this.sales_return_Load);

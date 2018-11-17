@@ -28,7 +28,10 @@ namespace WindowsFormsApplication2
             OleDbCommand cmd = new OleDbCommand("select * from payment_receipt where (due_amount <> '0') Order by in_date ASC", connection);
             try
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
@@ -42,7 +45,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 

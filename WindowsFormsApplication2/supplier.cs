@@ -52,10 +52,8 @@ namespace WindowsFormsApplication2
         {
             try
             {
-
                 dataGridView1.DataSource = null;
                 dataGridView1.Rows.Clear();
-
             }
             catch (Exception)
             {
@@ -73,8 +71,6 @@ namespace WindowsFormsApplication2
         {
             if (dataGridView1.Rows.Count > 0)
             {
-
-
                 this.tabControl1.SelectedTab = tabPage2;
                 DataGridViewRow row = dataGridView1.Rows[selectedRow];
 
@@ -196,7 +192,10 @@ namespace WindowsFormsApplication2
                         }
                         finally
                         {
-                            connection.Close();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
                     }
                 }
@@ -207,7 +206,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             else
@@ -316,7 +318,10 @@ namespace WindowsFormsApplication2
                 comboBox1.DisplayMember = "city_name";
                 comboBox1.ValueMember = "ID";
                 comboBox1.DataSource = ds.Tables["city"];
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
 
             }
             catch (Exception p)
@@ -359,7 +364,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }
@@ -383,7 +391,10 @@ namespace WindowsFormsApplication2
                 comboBox2.DisplayMember = "country";
                 comboBox2.ValueMember = "country";
                 comboBox2.DataSource = ds.Tables["country"];
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
 
             }
             catch (Exception p)
@@ -422,7 +433,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }

@@ -24,7 +24,10 @@ namespace WindowsFormsApplication2
         private void gridview()
         {
             OleDbDataReader rdr = null;
-            connection.Close();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             connection.Open();
             OleDbCommand cmd = new OleDbCommand("SELECT id, in_no, in_date, c_name, amount, status, due_amount FROM in_main WHERE (status = 'Due') Order by in_date ASC", connection);
             try
@@ -46,8 +49,11 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
-               // gridview1();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+                // gridview1();
             }
         }
 

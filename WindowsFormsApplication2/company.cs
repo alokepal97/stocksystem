@@ -15,6 +15,7 @@ namespace WindowsFormsApplication2
             connection con = new connection();
             connection.ConnectionString = con.ConnectionString;
             gridview();
+            salesp();
         }
         int selectedRow = 0;
         private void gridview()
@@ -101,7 +102,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -121,45 +125,54 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            selectedRow = e.RowIndex;
-            DataGridViewRow row = dataGridView1.Rows[selectedRow];
+            if (dataGridView1.Rows.Count > 0)
+            {
+                selectedRow = e.RowIndex;
+                DataGridViewRow row = dataGridView1.Rows[selectedRow];
+            }
         }
 
         private void modibtn_Click(object sender, EventArgs e)
         {
-            this.tabControl1.SelectedTab = tabPage2;
-           // DataGridViewRow newDataRow = dataGridView1.Rows[selectedRow];
-            DataGridViewRow row = dataGridView1.Rows[selectedRow];
-
-            // display datagridview selected row data into textboxes
-            textBox6.Text = row.Cells[0].Value.ToString();
-            textBox1.Text = row.Cells[1].Value.ToString();
-            textBox2.Text = row.Cells[2].Value.ToString();
-            textBox3.Text = row.Cells[3].Value.ToString();
-            comboBox1.Text = row.Cells[4].Value.ToString();
-            textBox4.Text = row.Cells[5].Value.ToString();
-            textBox5.Text = row.Cells[6].Value.ToString();
-            comboBox2.Text = row.Cells[7].Value.ToString();
-            textBox7.Text = row.Cells[8].Value.ToString();
-            textBox8.Text = row.Cells[9].Value.ToString();
-            textBox9.Text = row.Cells[10].Value.ToString();
-            textBox10.Text = row.Cells[11].Value.ToString();
-            textBox11.Text = row.Cells[12].Value.ToString();
-            textBox12.Text = row.Cells[13].Value.ToString();
-            textBox13.Text = row.Cells[14].Value.ToString();
-            textBox14.Text = row.Cells[15].Value.ToString();
-            textBox15.Text = row.Cells[16].Value.ToString();
-            int val = Convert.ToInt32(row.Cells[17].Value.ToString());
-            if (val == 1)
+            if (dataGridView1.Rows.Count > 0)
             {
-                detailsChk.Checked = true;
+                this.tabControl1.SelectedTab = tabPage2;
+                // DataGridViewRow newDataRow = dataGridView1.Rows[selectedRow];
+                DataGridViewRow row = dataGridView1.Rows[selectedRow];
+
+                // display datagridview selected row data into textboxes
+                textBox6.Text = row.Cells[0].Value.ToString();
+                textBox1.Text = row.Cells[1].Value.ToString();
+                textBox2.Text = row.Cells[2].Value.ToString();
+                textBox3.Text = row.Cells[3].Value.ToString();
+                comboBox1.Text = row.Cells[4].Value.ToString();
+                textBox4.Text = row.Cells[5].Value.ToString();
+                textBox5.Text = row.Cells[6].Value.ToString();
+                comboBox2.Text = row.Cells[7].Value.ToString();
+                textBox7.Text = row.Cells[8].Value.ToString();
+                textBox8.Text = row.Cells[9].Value.ToString();
+                textBox9.Text = row.Cells[10].Value.ToString();
+                textBox10.Text = row.Cells[11].Value.ToString();
+                textBox11.Text = row.Cells[12].Value.ToString();
+                textBox12.Text = row.Cells[13].Value.ToString();
+                textBox13.Text = row.Cells[14].Value.ToString();
+                textBox14.Text = row.Cells[15].Value.ToString();
+                textBox15.Text = row.Cells[16].Value.ToString();
+                int val = Convert.ToInt32(row.Cells[17].Value.ToString());
+                if (val == 1)
+                {
+                    detailsChk.Checked = true;
+                }
             }
         }
 
@@ -384,29 +397,55 @@ namespace WindowsFormsApplication2
 
         private void comboBox1_Click(object sender, EventArgs e)
         {
-            salesp();
+            //salesp();
         }
 
         private void salesp()
         {
             try
             {
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-                connection.Open();
-                OleDbCommand command = new OleDbCommand();
-                command.Connection = connection;
-                string query = " select ID,city_name from city";
-                command.CommandText = query;
-                OleDbDataAdapter da = new OleDbDataAdapter(command);
-                DataSet ds = new DataSet();
-                da.Fill(ds, "city");
-                comboBox1.DisplayMember = "city_name";
-                comboBox1.ValueMember = "ID";
-                comboBox1.DataSource = ds.Tables["city"];
-                connection.Close();
+                //if (connection.State == ConnectionState.Open)
+                //{
+                //    connection.Close();
+                //}
+                //connection.Open();
+                //OleDbCommand command = new OleDbCommand();
+                //command.Connection = connection;
+                //string query = "select ID,city_name from city";
+                //command.CommandText = query;
+                //OleDbDataAdapter da = new OleDbDataAdapter(command);
+                //DataSet ds = new DataSet();
+                //da.Fill(ds, "city");
+                //comboBox1.DisplayMember = "city_name";
+                //comboBox1.ValueMember = "ID";
+                //comboBox1.DataSource = ds.Tables["city"];
+                //comboBox1.AutoCompleteMode = AutoCompleteMode.Suggest;
+                //comboBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                //AutoCompleteStringCollection combData = new AutoCompleteStringCollection();
+                //comboBox1.AutoCompleteCustomSource = combData;SELECT ID, city_name FROM city order by city_name
+                //connection.Close();select ID, name from grou order by name
+                using (OleDbDataAdapter sda = new OleDbDataAdapter("SELECT ID, city_name FROM city order by city_name", connection))
+                    {
+                        //Fill the DataTable with records from Table.
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+
+                        //Insert the Default Item to DataTable.
+                        DataRow row = dt.NewRow();
+                        row[0] = 0;
+                        row[1] = "";
+                        dt.Rows.InsertAt(row, 0);
+
+                    //Assign DataTable as DataSource.
+                    comboBox1.DataSource = dt;
+                    comboBox1.DisplayMember = "city_name";
+                    comboBox1.ValueMember = "ID";
+
+                    //Set AutoCompleteMode.
+                    comboBox1.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    }
+                
 
             }
             catch (Exception p)

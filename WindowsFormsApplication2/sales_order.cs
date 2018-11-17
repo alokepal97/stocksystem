@@ -120,9 +120,9 @@ namespace WindowsFormsApplication2
                         }
 
                     }
-                    catch (Exception exq)
+                    catch (Exception)
                     {
-                        MessageBox.Show("Display into column errorrrr!!!!!!!!!!!" + exq);
+                        MessageBox.Show("Something Wrong!");
                     }
                     finally
                     {
@@ -131,7 +131,6 @@ namespace WindowsFormsApplication2
                             connection.Close();
                         }
                     }
-
                 }
             }
         }
@@ -175,72 +174,98 @@ namespace WindowsFormsApplication2
 
         private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString().Length > 0)
-            //Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null
+            try
             {
-                if (dataGridView2.Rows[e.RowIndex].Cells[4].Value.ToString().Length > 0)
+                if (dataGridView2.Rows[e.RowIndex].Cells[0].Value != null)
                 {
-                    dis = ((Convert.ToDouble(dataGridView2.Rows[selectedRow].Cells[5].Value)) / 100) * Convert.ToDouble(Convert.ToDouble(dataGridView2.Rows[selectedRow].Cells[4].Value));
-                    dataGridView2.Rows[selectedRow].Cells[6].Value = Convert.ToString(dis);
-
-                    dataGridView2.Rows[e.RowIndex].Cells[6].Value = Convert.ToString(Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[6].Value) * Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[2].Value));
-
-                    //total
-                    double tot = Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[2].Value) * Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[4].Value);
-                    dataGridView2.Rows[e.RowIndex].Cells[7].Value = Convert.ToString(tot);
-                    //discountamount
-                    double var = tot - Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[6].Value);
-                    //cgst amount on discount price
-                    cgst1 = (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[9].Value) / 100) * var;
-                    //sgst amount on discount price
-                    sgst1 = (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[11].Value) / 100) * var;
-
-                    dataGridView2.Rows[e.RowIndex].Cells[8].Value = Convert.ToString(var + cgst1 + sgst1);
-                    dataGridView2.Rows[e.RowIndex].Cells[10].Value = Convert.ToString(cgst1);
-                    dataGridView2.Rows[e.RowIndex].Cells[12].Value = Convert.ToString(sgst1);
-
-                    double net = 0.000;
-                    for (int i = 0; i < dataGridView2.Rows.Count; ++i)
+                    invoice.code = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    stock_check st = new stock_check();
+                    st.getstock();
+                }
+                if (dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString().Length > 0)
+                //Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null
+                {
+                    if (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[2].Value.ToString()) < stock_check.stock)
                     {
-                        net += Convert.ToDouble(dataGridView2.Rows[i].Cells[7].Value);
-                    }
-                    textBox12.Text = net.ToString();
+                        dis = ((Convert.ToDouble(dataGridView2.Rows[selectedRow].Cells[5].Value)) / 100) *
+                          Convert.ToDouble(Convert.ToDouble(dataGridView2.Rows[selectedRow].Cells[4].Value));
 
-                    double neta = 0.000;
-                    for (int j = 0; j < dataGridView2.Rows.Count; ++j)
-                    {
-                        neta += Convert.ToDouble(dataGridView2.Rows[j].Cells[8].Value);
-                    }
-                    textBox16.Text = Convert.ToString(neta);
+                        dataGridView2.Rows[selectedRow].Cells[6].Value = Convert.ToString(dis);
 
-                    double cgstamount = 0.000;
-                    for (int h = 0; h < dataGridView2.Rows.Count; ++h)
-                    {
-                        cgstamount += Convert.ToDouble(dataGridView2.Rows[h].Cells[10].Value);
-                    }
-                    textBox14.Text = Convert.ToString(cgstamount);
+                        dataGridView2.Rows[e.RowIndex].Cells[6].Value = Convert.ToString(Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[6].Value) *
+                            Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[2].Value));
+                        //total
+                        double tot = Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[2].Value) *
+                            Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[4].Value);
 
-                    double sgstamount = 0.000;
-                    for (int k = 0; k < dataGridView2.Rows.Count; ++k)
-                    {
-                        sgstamount += Convert.ToDouble(dataGridView2.Rows[k].Cells[12].Value);
-                    }
-                    textBox15.Text = Convert.ToString(sgstamount);
+                        double totalamt = tot - Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[6].Value);
 
-                    double discount_total = 0.000;
-                    for (int k = 0; k < dataGridView2.Rows.Count; ++k)
-                    {
-                        discount_total += Convert.ToDouble(dataGridView2.Rows[k].Cells[5].Value);
+                        if (totalamt >= 0)
+                        {
+                            dataGridView2.Rows[e.RowIndex].Cells[7].Value = Convert.ToString(totalamt);
+                        }
+                        else
+                        {
+                            dataGridView2.Rows[e.RowIndex].Cells[7].Value = Convert.ToString("0");
+                        }
+
+                        //discountamount
+                        double var = tot - Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[6].Value);
+                        //cgst amount on discount price
+                        cgst1 = (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[9].Value) / 100) * var;
+                        //sgst amount on discount price
+                        sgst1 = (Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[11].Value) / 100) * var;
+
+                        dataGridView2.Rows[e.RowIndex].Cells[8].Value = Convert.ToString(var + cgst1 + sgst1);
+                        dataGridView2.Rows[e.RowIndex].Cells[10].Value = Convert.ToString(cgst1);
+                        dataGridView2.Rows[e.RowIndex].Cells[12].Value = Convert.ToString(sgst1);
+
+                        double net = 0.000;
+                        for (int i = 0; i < dataGridView2.Rows.Count; ++i)
+                        {
+                            net += Convert.ToDouble(dataGridView2.Rows[i].Cells[8].Value);
+                        }
+                        textBox12.Text = net.ToString();
+
+                        double neta = 0.000;
+                        for (int j = 0; j < dataGridView2.Rows.Count; ++j)
+                        {
+                            neta += Convert.ToDouble(dataGridView2.Rows[j].Cells[8].Value);
+                        }
+                        textBox16.Text = Convert.ToString(neta);
+
+                        double cgstamount = 0.000;
+                        for (int h = 0; h < dataGridView2.Rows.Count; ++h)
+                        {
+                            cgstamount += Convert.ToDouble(dataGridView2.Rows[h].Cells[10].Value);
+                        }
+                        textBox14.Text = Convert.ToString(cgstamount);
+
+                        double sgstamount = 0.000;
+                        for (int k = 0; k < dataGridView2.Rows.Count; ++k)
+                        {
+                            sgstamount += Convert.ToDouble(dataGridView2.Rows[k].Cells[12].Value);
+                        }
+                        textBox15.Text = Convert.ToString(sgstamount);
+
+                        double discount_total = 0.000;
+                        for (int k = 0; k < dataGridView2.Rows.Count; ++k)
+                        {
+                            discount_total += Convert.ToDouble(dataGridView2.Rows[k].Cells[5].Value);
+                        }
+                        textBox13.Text = Convert.ToString(discount_total);
                     }
-                    textBox13.Text = Convert.ToString(discount_total);
+                }
+                else
+                {
+                    MessageBox.Show("Enter the Quantity");
                 }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Enter the Quantity");
+                MessageBox.Show("Something Goes Wrong!");
             }
         }
-
         private void scombo()
         {
             try
@@ -314,7 +339,6 @@ namespace WindowsFormsApplication2
 
             }
         }
-
         private void grid()
         {
 
@@ -347,7 +371,6 @@ namespace WindowsFormsApplication2
                 }
             }
         }
-
         private void sales_order_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'stockDataSet6.customer' table. You can move, or remove it, as needed.
@@ -461,7 +484,10 @@ namespace WindowsFormsApplication2
                 cmd.Parameters.AddWithValue("@id", row.Cells[1].Value.ToString());
                 try
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -479,7 +505,7 @@ namespace WindowsFormsApplication2
                         double net = 0.000;
                         for (int i = 0; i < dataGridView2.Rows.Count; ++i)
                         {
-                            net += Convert.ToDouble(dataGridView2.Rows[i].Cells[7].Value);
+                            net += Convert.ToDouble(dataGridView2.Rows[i].Cells[8].Value);
                         }
                         textBox12.Text = net.ToString();
 
@@ -522,7 +548,10 @@ namespace WindowsFormsApplication2
 
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
 
@@ -568,11 +597,10 @@ namespace WindowsFormsApplication2
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (selectedrow > 0)
+            if (dataGridView1.Rows.Count > 0)
             {
                 try
                 {
-                    DataGridViewRow newDataRow = dataGridView1.Rows[selectedrow];
                     DataGridViewRow row = dataGridView1.Rows[selectedrow];
                     string cf = row.Cells[0].Value.ToString();
                     int cd = Convert.ToInt32(cf);
@@ -602,7 +630,7 @@ namespace WindowsFormsApplication2
                 }
                 catch (Exception)
                 {
-
+                    MessageBox.Show("Something Wrong!!!");
                 }
             }
         }
@@ -630,7 +658,7 @@ namespace WindowsFormsApplication2
                 MessageBox.Show("" + g);
             }
 
-
+            getid();
         }
 
         private void gridview()
@@ -678,7 +706,10 @@ namespace WindowsFormsApplication2
 
             try
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
@@ -693,7 +724,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }

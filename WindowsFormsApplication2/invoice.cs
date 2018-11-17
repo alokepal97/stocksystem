@@ -133,7 +133,7 @@ namespace WindowsFormsApplication2
                         double net = 0.000;
                         for (int i = 0; i < dataGridView2.Rows.Count; ++i)
                         {
-                            net += Convert.ToDouble(dataGridView2.Rows[i].Cells[7].Value);
+                            net += Convert.ToDouble(dataGridView2.Rows[i].Cells[8].Value);
                         }
                         textBox18.Text = net.ToString();
 
@@ -546,6 +546,7 @@ namespace WindowsFormsApplication2
             textBox17.Text = textBox18.Text = textBox19.Text = textBox20.Text = textBox21.Text = "0";
             dateTimePicker1.ResetText();
             dateTimePicker2.ResetText();
+            getid();
         }
 
         private void clear()
@@ -737,19 +738,18 @@ namespace WindowsFormsApplication2
                     double net = 0.000;
                     for (int i = 0; i < dataGridView2.Rows.Count; ++i)
                     {
-                        net += Convert.ToDouble(dataGridView2.Rows[i].Cells[7].Value);
+                        net += Convert.ToDouble(dataGridView2.Rows[i].Cells[8].Value);
                     }
                     textBox18.Text = net.ToString();
-
-                    double neta = 0.000;
-                    for (int j = 0; j < dataGridView2.Rows.Count; ++j)
-                    {
-                        neta += Convert.ToDouble(dataGridView2.Rows[j].Cells[8].Value);
-                    }
-                    textBox19.Text = Convert.ToString(neta);
+                    textBox19.Text = net.ToString();
 
                     // discount amount
-                    textBox17.Text = Convert.ToString(net - neta);
+                    double discount_total = 0.000;
+                    for (int k = 0; k < dataGridView2.Rows.Count; ++k)
+                    {
+                        discount_total += Convert.ToDouble(dataGridView2.Rows[k].Cells[5].Value);
+                    }
+                    textBox17.Text = Convert.ToString(discount_total);
                 }
             }
         }

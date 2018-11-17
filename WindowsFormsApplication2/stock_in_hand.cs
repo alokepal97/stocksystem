@@ -36,7 +36,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -47,7 +50,10 @@ namespace WindowsFormsApplication2
         {
             try
             {
-                
+                if(connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 OleDbDataReader rdr = null;
                 OleDbCommand cmd = new OleDbCommand("select item_code,item_name,receive_qty,unit from stock where (receive_qty > min_stock)", connection);
@@ -65,7 +71,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -91,7 +100,10 @@ namespace WindowsFormsApplication2
             dataGridView1.Rows.Clear();
             try
             {
-
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
                 OleDbDataReader rdr = null;
                 OleDbCommand cmd = new OleDbCommand("select item_code,item_name,receive_qty,unit from stock where (receive_qty > min_stock) and item_Name like '" + textBox1.Text + "%'", connection);
@@ -109,7 +121,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 

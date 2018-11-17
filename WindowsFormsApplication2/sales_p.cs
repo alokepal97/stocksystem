@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Windows.Forms;
 namespace WindowsFormsApplication2
 {
     public partial class sales_p : Form
@@ -46,7 +41,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
         private void grid()
@@ -63,7 +61,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -122,8 +123,12 @@ namespace WindowsFormsApplication2
                     ResetForm();
                     grid();
                     gridview();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
-                else 
+                else
                 {
                     OleDbCommand command = new OleDbCommand(@"UPDATE tb_p
                                                     SET p_name = @p_name,
@@ -174,20 +179,26 @@ namespace WindowsFormsApplication2
                     }
                     finally
                     {
-                        connection.Close();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                     }
                 }
 
             }
             catch (Exception exp)
             {
-                MessageBox.Show("Error"+exp);
-            
+                MessageBox.Show("Error" + exp);
+
             }
             finally
             {
-                connection.Close();
-            } 
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
 
         }
 
@@ -208,7 +219,10 @@ namespace WindowsFormsApplication2
                 //  MessageBox.Show("DATA Deleted Sucessfully");
                 grid();
                 gridview();
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -231,7 +245,10 @@ namespace WindowsFormsApplication2
                 comboBox1.DisplayMember = "city_name";
                 comboBox1.ValueMember = "ID";
                 comboBox1.DataSource = ds.Tables["city"];
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
 
             }
             catch (Exception p)
@@ -276,7 +293,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }
@@ -307,14 +327,13 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }
     }
-    
-
-
-
-    }
+}
 

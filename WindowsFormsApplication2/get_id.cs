@@ -36,7 +36,10 @@ namespace WindowsFormsApplication2
             
                try
             {
-                  
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
                 connection.Open();
              
                 OleDbDataReader rdr = null;
@@ -67,7 +70,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
         }

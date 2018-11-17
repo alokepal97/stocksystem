@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Windows.Forms;
 namespace WindowsFormsApplication2
 {
     public partial class stock_r_n : Form
@@ -21,10 +16,10 @@ namespace WindowsFormsApplication2
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker2.Value = DateTime.Now;
             dateTimePicker3.Value = DateTime.Now;
-           
+
         }
         string text = "Customer";
-        public static string combo1= "";
+        public static string combo1 = "";
         public static string combo2 = "";
         public static string supplier = "";
         public static string customer = "";
@@ -46,7 +41,7 @@ namespace WindowsFormsApplication2
 
             try
             {
-                if(connection.State== ConnectionState.Open)
+                if (connection.State == ConnectionState.Open)
                 {
                     connection.Close();
                 }
@@ -54,8 +49,8 @@ namespace WindowsFormsApplication2
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    dataGridView2.Rows.Add(Convert.ToString(rdr["ID"]),Convert.ToString(rdr["n_no"]), 
-                   Convert.ToString(rdr["n_date"]), Convert.ToString(rdr["ref_no"]), Convert.ToString(rdr["ref_date"]), 
+                    dataGridView2.Rows.Add(Convert.ToString(rdr["ID"]), Convert.ToString(rdr["n_no"]),
+                   Convert.ToString(rdr["n_date"]), Convert.ToString(rdr["ref_no"]), Convert.ToString(rdr["ref_date"]),
                    Convert.ToString(rdr["type"]), Convert.ToString(rdr["name"]), Convert.ToString(rdr["rec_no"]));
                 }
             }
@@ -71,80 +66,43 @@ namespace WindowsFormsApplication2
                 }
             }
         }
-           private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox2.DataSource = null;
             comboBox3.DataSource = null;
 
-                string combo = comboBox1.Text;
-  
-                if (combo == text)
-                {
-                    combo2 = "";
-                    
-                    label6.Text = "Customer Name";
-                    // code for customer sale table
-                     combo1 = "Customer Name";
-                    try
-                    {
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                         connection.Open();
-                        OleDbCommand command = new OleDbCommand();
-                        command.Connection = connection;
-                        string query = "select * from customer";
-                        command.CommandText = query;
-                        OleDbDataAdapter da = new OleDbDataAdapter(command);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        comboBox2.DataSource = dt;
-                        comboBox2.DisplayMember = "C_name";
-                        comboBox2.ValueMember = "C_name";
+            string combo = comboBox1.Text;
 
-                    }
-                    catch (Exception c)
-                    {
-                        MessageBox.Show("Error"+c);
-                    }
-                finally
+            if (combo == text)
+            {
+                combo2 = "";
+
+                label6.Text = "Customer Name";
+                // code for customer sale table
+                combo1 = "Customer Name";
+                try
                 {
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                }
-                   
-                }
-                else if (combo == "Supplier")
-                {
-                    combo1 = "";
-                    label6.Text = "Supplier Name";
-                    // code for stock receipt page
-                    combo2 = "Supplier";
-                    try
-                    {
                     if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
                     connection.Open();
-                        OleDbCommand command = new OleDbCommand();
-                        command.Connection = connection;
-                        string query = "select s_name from supplier";
-                        command.CommandText = query;
-                        OleDbDataAdapter da = new OleDbDataAdapter(command);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        comboBox2.DataSource = dt;
-                        comboBox2.DisplayMember = "s_name";
-                        comboBox2.ValueMember = "s_name";
-                    }
-                    catch (Exception y)
-                    {
-                        MessageBox.Show("Error"+y);
-                    }
+                    OleDbCommand command = new OleDbCommand();
+                    command.Connection = connection;
+                    string query = "select * from customer where (o_details ='Active')";
+                    command.CommandText = query;
+                    OleDbDataAdapter da = new OleDbDataAdapter(command);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    comboBox2.DataSource = dt;
+                    comboBox2.DisplayMember = "C_name";
+                    comboBox2.ValueMember = "C_name";
+
+                }
+                catch (Exception c)
+                {
+                    MessageBox.Show("Error" + c);
+                }
                 finally
                 {
                     if (connection.State == ConnectionState.Open)
@@ -153,11 +111,49 @@ namespace WindowsFormsApplication2
                     }
                 }
 
+            }
+            else if (combo == "Supplier")
+            {
+                combo1 = "";
+                label6.Text = "Supplier Name";
+                // code for stock receipt page
+                combo2 = "Supplier";
+                try
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                    connection.Open();
+                    OleDbCommand command = new OleDbCommand();
+                    command.Connection = connection;
+                    string query = "select s_name from supplier";
+                    command.CommandText = query;
+                    OleDbDataAdapter da = new OleDbDataAdapter(command);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    comboBox2.DataSource = dt;
+                    comboBox2.DisplayMember = "s_name";
+                    comboBox2.ValueMember = "s_name";
                 }
-                else {
-                    label6.Text = "Customer Name";
+                catch (Exception y)
+                {
+                    MessageBox.Show("Error" + y);
                 }
-            
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+
+            }
+            else
+            {
+                label6.Text = "Customer Name";
+            }
+
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -165,31 +161,38 @@ namespace WindowsFormsApplication2
             comboBox3.DataSource = null;
             if (comboBox2.Text != null)
             {
-                
+
                 if (comboBox1.Text == "Customer")
                 {
-                  //!------------------------------------------------------
+                    //!------------------------------------------------------
                     try
                     {
                         customer = comboBox2.Text;
                         OleDbCommand command = new OleDbCommand();
                         command.Connection = connection;
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                        connection.Open();
                         string query = "select notes from main_sales where c_name=@supplier ";
                         command.CommandText = query;
-                        command.Parameters.AddWithValue("@supplier", comboBox2.Text);                        
+                        command.Parameters.AddWithValue("@supplier", comboBox2.Text);
                         OleDbDataAdapter da = new OleDbDataAdapter(command);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
                         comboBox3.DataSource = dt;
                         comboBox3.DisplayMember = "notes";
                         comboBox3.ValueMember = "notes";
-
-                        
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                     }
 
                     catch (Exception i)
                     {
-                        MessageBox.Show("Error" +i);
+                        MessageBox.Show("Error" + i);
                     }
                     finally
                     {
@@ -199,7 +202,7 @@ namespace WindowsFormsApplication2
                         }
                     }
 
-                   
+
                 }
                 else if (comboBox1.Text == "Supplier")
                 {
@@ -208,6 +211,11 @@ namespace WindowsFormsApplication2
                         OleDbCommand command = new OleDbCommand();
                         command.Connection = connection;
                         //string query = "select * from stock_receipt where supplier_name=@supplier group by supplier_name";
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                        connection.Open();
                         string query = "select id,notes from stock_receipt ";
                         command.CommandText = query;
                         command.Parameters.AddWithValue("@supplier", comboBox2.Text);
@@ -222,7 +230,7 @@ namespace WindowsFormsApplication2
 
                     catch (Exception u)
                     {
-                        MessageBox.Show("Error" +u);
+                        MessageBox.Show("Error" + u);
                     }
                     finally
                     {
@@ -231,71 +239,71 @@ namespace WindowsFormsApplication2
                             connection.Close();
                         }
                     }
-                
+
                 }
             }
         }
-       //select Button
+        //select Button
         private void button6_Click(object sender, EventArgs e)
         {
-            
+
             this.Show();
             stockissue co = new stockissue();
             co.ShowDialog();
             Boolean found = false;
-                  
-                   if (stockissue.item_code.Length>0)
+
+            if (stockissue.item_code.Length > 0)
+            {
+                if (dataGridView1.Rows.Count > 0)
                 {
-                    if (dataGridView1.Rows.Count > 0)
-                    {
 
-                        for (int h = 0; h < dataGridView1.Rows.Count; ++h)
+                    for (int h = 0; h < dataGridView1.Rows.Count; ++h)
+                    {
+                        if (dataGridView1.Rows[h].Cells[0].Value.ToString() == stockissue.item_code)
                         {
-                            if (dataGridView1.Rows[h].Cells[0].Value.ToString() == stockissue.item_code)
-                            {
-                                found = true;
-                                break;
-                            }
+                            found = true;
+                            break;
                         }
-                     }
-                     if (found)
-                    {
-                        MessageBox.Show("Already Exists");
                     }
-                     else if (!found)
-                     {
-                          found = false;
-                         OleDbDataReader rdr = null;
-                         OleDbCommand cmd = new OleDbCommand("select * from stock where item_code =@item_code ", connection);
-                         cmd.Parameters.AddWithValue("@item_code", stockissue.item_code);
+                }
+                if (found)
+                {
+                    MessageBox.Show("Already Exists");
+                }
+                else if (!found)
+                {
+                    found = false;
+                    OleDbDataReader rdr = null;
+                    OleDbCommand cmd = new OleDbCommand("select * from stock where item_code =@item_code ", connection);
+                    cmd.Parameters.AddWithValue("@item_code", stockissue.item_code);
 
-                         try
-                         {
+                    try
+                    {
                         if (connection.State == ConnectionState.Open)
                         {
                             connection.Close();
                         }
                         connection.Open();
-                             rdr = cmd.ExecuteReader();
-                             while (rdr.Read())
-                             {
-                                 dataGridView1.Rows.Add(Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_name"]), Convert.ToString("0"), Convert.ToString(rdr["unit"]));
-                             }
-                         }
-                         catch (Exception u)
-                         {
-                             MessageBox.Show("" + u);
-                         }
-                         finally
-                         {
+                        rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            dataGridView1.Rows.Add(Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_name"]), Convert.ToString("0"), Convert.ToString(rdr["unit"]));
+                        }
+                    }
+                    catch (Exception u)
+                    {
+                        MessageBox.Show("" + u);
+                    }
+                    finally
+                    {
                         if (connection.State == ConnectionState.Open)
                         {
                             connection.Close();
                         }
                     }
-                     }  
-                
-                    }
+                }
+
+            }
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -303,7 +311,7 @@ namespace WindowsFormsApplication2
             delivery = comboBox3.Text;
         }
 
-         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
@@ -312,14 +320,14 @@ namespace WindowsFormsApplication2
             }
         }
 
-         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
-         {
-             if (e.RowIndex != -1)
-             {
-                 selectedrow = e.RowIndex;
-                 DataGridViewRow row = dataGridView2.Rows[selectedrow];
-             }
-         }
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                selectedrow = e.RowIndex;
+                DataGridViewRow row = dataGridView2.Rows[selectedrow];
+            }
+        }
         //deletebutton
         private void button7_Click(object sender, EventArgs e)
         {
@@ -452,54 +460,54 @@ namespace WindowsFormsApplication2
         {
             if (dataGridView2.Rows.Count > 0)
             {
-            this.tabControl1.SelectedTab = tabPage2;
-            DataGridViewRow row = dataGridView2.Rows[selectedrow];
-            dataGridView1.Rows.Clear();
+                this.tabControl1.SelectedTab = tabPage2;
+                DataGridViewRow row = dataGridView2.Rows[selectedrow];
+                dataGridView1.Rows.Clear();
 
-            //!-------------------------  ------------------!
-            textBox3.Text = row.Cells[0].Value.ToString();
-            textBox1.Text = row.Cells[1].Value.ToString();
-            dateTimePicker1.Text = row.Cells[2].Value.ToString();
-            textBox2.Text = row.Cells[3].Value.ToString();
-            dateTimePicker3.Text = row.Cells[4].Value.ToString();
-            comboBox1.Text = row.Cells[5].Value.ToString();
-            comboBox2.Text = row.Cells[6].Value.ToString();
+                //!-------------------------  ------------------!
+                textBox3.Text = row.Cells[0].Value.ToString();
+                textBox1.Text = row.Cells[1].Value.ToString();
+                dateTimePicker1.Text = row.Cells[2].Value.ToString();
+                textBox2.Text = row.Cells[3].Value.ToString();
+                dateTimePicker3.Text = row.Cells[4].Value.ToString();
+                comboBox1.Text = row.Cells[5].Value.ToString();
+                comboBox2.Text = row.Cells[6].Value.ToString();
 
-            //!--------fetch from database
-            OleDbDataReader rdr = null;
-            OleDbCommand cmd = new OleDbCommand("select * from stock_return where  (n_no = @id)", connection);
-            cmd.Parameters.AddWithValue("@id", row.Cells[1].Value.ToString());
-            try
-            {
+                //!--------fetch from database
+                OleDbDataReader rdr = null;
+                OleDbCommand cmd = new OleDbCommand("select * from stock_return where  (n_no = @id)", connection);
+                cmd.Parameters.AddWithValue("@id", row.Cells[1].Value.ToString());
+                try
+                {
                     if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
                     connection.Open();
-                rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    comboBox3.Text = Convert.ToString(rdr["deli_note"]);
-                    dateTimePicker2.Text = Convert.ToString(rdr["d_date"]);
-                    textBox4.Text = Convert.ToString(rdr["notes"]);
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        comboBox3.Text = Convert.ToString(rdr["deli_note"]);
+                        dateTimePicker2.Text = Convert.ToString(rdr["d_date"]);
+                        textBox4.Text = Convert.ToString(rdr["notes"]);
 
-                    dataGridView1.Rows.Add(Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_name"]), Convert.ToString(rdr["r_qty"]), Convert.ToString(rdr["unit"]));
+                        dataGridView1.Rows.Add(Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_name"]), Convert.ToString(rdr["r_qty"]), Convert.ToString(rdr["unit"]));
 
+                    }
                 }
-            }
-            catch (Exception w)
-            {
-                MessageBox.Show("" + w);
-            }
+                catch (Exception w)
+                {
+                    MessageBox.Show("" + w);
+                }
 
-            finally
-            {
+                finally
+                {
                     if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
                 }
-        }
+            }
         }
 
         //delete code
@@ -537,9 +545,7 @@ namespace WindowsFormsApplication2
         }
         private void gridview()
         {
-
             dataGridView2.Rows.Clear();
-           
         }
         private void reset()
         {
@@ -551,6 +557,7 @@ namespace WindowsFormsApplication2
             dateTimePicker2.Value = DateTime.Now;
             dateTimePicker3.Value = DateTime.Now;
             comboBox1.Text = comboBox2.Text = comboBox3.Text = null;
+            getid();
         }
 
         private void button1_Click(object sender, EventArgs e)

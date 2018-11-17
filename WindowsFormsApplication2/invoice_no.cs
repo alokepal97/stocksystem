@@ -26,10 +26,13 @@ namespace WindowsFormsApplication2
             if (select_no.tbl == "invoice")
             {
                 OleDbDataReader rdr = null;
-                OleDbCommand cmd = new OleDbCommand("select * from in_main where (type='in')", connection);
+                OleDbCommand cmd = new OleDbCommand("select * from in_main where (type='in') and (status = 'Due')", connection);
                 try
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -43,16 +46,22 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             else if (select_no.tbl == "tax_invoice")
             {
                 OleDbDataReader rdr = null;
-                OleDbCommand cmd = new OleDbCommand("select * from in_main where (type='in')", connection);
+                OleDbCommand cmd = new OleDbCommand("select * from in_main where (type='tax') and (status = 'Due')", connection);
                 try
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -66,7 +75,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
            
@@ -102,10 +114,13 @@ namespace WindowsFormsApplication2
             if (select_no.tbl == "invoice")
             {
                 OleDbDataReader rdr = null;
-                OleDbCommand cmd = new OleDbCommand("select * from in_main where (in_no like '" + textBox1.Text + "%') and (type = 'in')", connection);
+                OleDbCommand cmd = new OleDbCommand("select * from in_main where (in_no like '" + textBox1.Text + "%') and (type = 'in') and (status = 'Due')", connection);
                 try
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -119,16 +134,22 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             else if (select_no.tbl == "tax_invoice")
             {
                 OleDbDataReader rdr = null;
-                OleDbCommand cmd = new OleDbCommand("select * from in_main where (in_no like '" + textBox1.Text + "%') and (type = 'in')", connection);
+                OleDbCommand cmd = new OleDbCommand("select * from in_main where (in_no like '" + textBox1.Text + "%') and (type = 'tax') and (status = 'Due')", connection);
                 try
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -142,7 +163,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
         }

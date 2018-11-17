@@ -16,6 +16,7 @@ namespace WindowsFormsApplication2
             connection con = new connection();
             connection.ConnectionString = con.ConnectionString;
             gridview();
+            group();
         }
         int selectedRow;
 
@@ -99,7 +100,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
         //clear grid view data
@@ -116,7 +120,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
         //select cell number
@@ -188,7 +195,10 @@ namespace WindowsFormsApplication2
                         OleDbCommand cmd = new OleDbCommand(command1, connection);
                         cmd.Parameters.AddWithValue("@qty", 0);
                         cmd.ExecuteNonQuery();
-
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                         ResetForm();
                         grid();
                         gridview();
@@ -265,6 +275,10 @@ namespace WindowsFormsApplication2
                             gridview();
                             ResetForm();
                             this.tabControl1.SelectedTab = tabPage1;
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
                         catch (Exception t)
                         {
@@ -272,7 +286,10 @@ namespace WindowsFormsApplication2
                         }
                         finally
                         {
-                            connection.Close();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
                     }
                 }
@@ -282,7 +299,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             // code
@@ -345,21 +365,43 @@ namespace WindowsFormsApplication2
         {
             try
             {
-                if (connection.State == ConnectionState.Open)
+                //if (connection.State == ConnectionState.Open)
+                //{
+                //    connection.Close();
+                //}
+                //connection.Open();
+                //OleDbCommand command = new OleDbCommand();
+                //command.Connection = connection;
+                //string query = "select ID,name from grou";
+                //command.CommandText = query;
+                //OleDbDataAdapter da = new OleDbDataAdapter(command);
+                //DataSet ds = new DataSet();
+                //da.Fill(ds, "name");
+                //comboBox1.DisplayMember = "name";
+                //comboBox1.ValueMember = "name";
+                //comboBox1.DataSource = ds.Tables["name"];
+
+                using (OleDbDataAdapter sda = new OleDbDataAdapter("SELECT ID, city_name FROM city order by city_name", connection))
                 {
-                    connection.Close();
+                    //Fill the DataTable with records from Table.
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+
+                    //Insert the Default Item to DataTable.
+                    DataRow row = dt.NewRow();
+                    row[0] = 0;
+                    row[1] = "";
+                    dt.Rows.InsertAt(row, 0);
+
+                    //Assign DataTable as DataSource.
+                    comboBox1.DataSource = dt;
+                    comboBox1.DisplayMember = "city_name";
+                    comboBox1.ValueMember = "ID";
+
+                    //Set AutoCompleteMode.
+                    comboBox1.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
                 }
-                connection.Open();
-                OleDbCommand command = new OleDbCommand();
-                command.Connection = connection;
-                string query = "select ID,name from grou";
-                command.CommandText = query;
-                OleDbDataAdapter da = new OleDbDataAdapter(command);
-                DataSet ds = new DataSet();
-                da.Fill(ds, "name");
-                comboBox1.DisplayMember = "name";
-                comboBox1.ValueMember = "name";
-                comboBox1.DataSource = ds.Tables["name"];
             }
             catch (Exception p)
             {
@@ -367,7 +409,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -397,7 +442,10 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -427,13 +475,16 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 
         private void comboBox1_Click(object sender, EventArgs e)
         {
-            group();
+            //group();
         }
 
         private void comboBox2_Click(object sender, EventArgs e)

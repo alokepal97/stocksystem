@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Data.OleDb;
 using System.Windows.Forms;
 
@@ -24,17 +20,17 @@ namespace WindowsFormsApplication2
         int selectedRow = 0;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex != -1)
+            if (e.RowIndex != -1)
             {
                 selectedRow = e.RowIndex;
                 DataGridViewRow row = dataGridView1.Rows[selectedRow];
-            }            
+            }
         }
         private void gridview()
         {
-         try
+            try
             {
-               if(connection.State == ConnectionState.Open)
+                if (connection.State == ConnectionState.Open)
                 {
                     connection.Close();
                 }
@@ -62,8 +58,11 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
-            }  
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
         }
 
 
@@ -71,7 +70,7 @@ namespace WindowsFormsApplication2
         {
             try
             {
-                          
+
                 dataGridView1.DataSource = null;
                 dataGridView1.Columns.Clear();
 
@@ -82,9 +81,12 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
-          
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -110,7 +112,7 @@ namespace WindowsFormsApplication2
 
         private void button1_Click(object sender, EventArgs e)
         {
-             if (this.ValidateChildren(ValidationConstraints.Enabled))
+            if (this.ValidateChildren(ValidationConstraints.Enabled))
             {
                 try
                 {
@@ -124,11 +126,11 @@ namespace WindowsFormsApplication2
                         }
                         connection.Open();
                         string command = "insert into unit(unit_name) values('" + textBox1.Text + "') ";
-                       
+
                         OleDbCommand cmdd = new OleDbCommand(command, connection);
                         cmdd.ExecuteNonQuery();
                         ResetForm();
-                      
+
                         grid();
                         gridview();
 
@@ -143,8 +145,8 @@ namespace WindowsFormsApplication2
                                                     WHERE ID = " + id + "", connection);
 
                         command.Parameters.AddWithValue("@unit_name", textBox1.Text);
-                       
-                       
+
+
                         try
                         {
                             if (connection.State == ConnectionState.Open)
@@ -161,13 +163,10 @@ namespace WindowsFormsApplication2
                         {
                             command.ExecuteNonQuery();
 
-                          //  MessageBox.Show("DATA UPDATED");
+                            //  MessageBox.Show("DATA UPDATED");
                             ResetForm();
                             grid();
                             gridview();
-                           
-
-
                         }
                         catch (Exception)
                         {
@@ -175,38 +174,41 @@ namespace WindowsFormsApplication2
                         }
                         finally
                         {
-                            connection.Close();
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
                         }
                     }
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Data Inserted Error!!!!!!!!!!!!!!");
-
                 }
                 finally
                 {
                     connection.Close();
                 }
             }
-            else { 
-            //validation
+            else
+            {
+                //validation
             }
         }
 
-        
+
 
         private void button4_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.Count > 0)
             {
-               
+
                 if (dataGridView1.Rows.Count > 0)
                 {
                     DataGridViewRow row = dataGridView1.Rows[selectedRow];
                     string cf = row.Cells[0].Value.ToString();
                     int cd = Convert.ToInt32(cf);
-                    if(connection.State == ConnectionState.Open)
+                    if (connection.State == ConnectionState.Open)
                     {
                         connection.Close();
                     }
@@ -217,11 +219,12 @@ namespace WindowsFormsApplication2
                     ResetForm();
                     grid();
                     gridview();
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
-                
             }
-            
         }
 
         private void textBox1_Validating(object sender, CancelEventArgs e)
@@ -236,18 +239,7 @@ namespace WindowsFormsApplication2
             {
                 e.Cancel = false;
                 errorProvider1.SetError(textBox1, "");
-            } 
+            }
         }
-
-       
-
-        
-
-
-
-
-
-
-
     }
 }

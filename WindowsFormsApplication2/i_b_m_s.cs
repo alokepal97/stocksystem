@@ -27,7 +27,7 @@ namespace WindowsFormsApplication2
         {
             try
             {
-                if(connection.State!= ConnectionState.Open)
+                if(connection.State == ConnectionState.Open)
                 {
                     connection.Close();
                 }
@@ -69,7 +69,7 @@ namespace WindowsFormsApplication2
             }
             finally
             {
-                if (connection.State != ConnectionState.Open)
+                if (connection.State == ConnectionState.Open)
                 {
                     connection.Close();
                 }

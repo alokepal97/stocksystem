@@ -31,7 +31,10 @@ namespace WindowsFormsApplication2
 
                 try
                 {
-
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     OleDbDataReader rdr = null;
                     OleDbCommand cmd = new OleDbCommand("select * from invoice where (in_no = @in_no )", connection);
@@ -50,7 +53,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             else  
@@ -60,7 +66,10 @@ namespace WindowsFormsApplication2
 
                 try
                 {
-
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     OleDbDataReader rdr = null;
                     OleDbCommand cmd = new OleDbCommand("select * from tax_invoice where (in_no = @in_no )", connection);
@@ -68,9 +77,7 @@ namespace WindowsFormsApplication2
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-
                         dataGridView1.Rows.Add(Convert.ToString(rdr["item_code"]), Convert.ToString(rdr["item_Name"]));
-
                     }
                 }
                 catch (Exception r)
@@ -79,7 +86,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
 
             }
@@ -118,7 +128,10 @@ namespace WindowsFormsApplication2
 
                 try
                 {
-
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     OleDbDataReader rdr = null;
                     OleDbCommand cmd = new OleDbCommand("select * from invoice where (in_no = @in_no ) and where item_Name like '" + textBox1.Text + "%'", connection);
@@ -137,17 +150,21 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
             }
             else
             {
                 //tax_invoice
-
-
                 try
                 {
-
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                     connection.Open();
                     OleDbDataReader rdr = null;
                     OleDbCommand cmd = new OleDbCommand("select * from tax_invoice where (in_no = @in_no ) and where item_Name like '" + textBox1.Text + "%'", connection);
@@ -166,7 +183,10 @@ namespace WindowsFormsApplication2
                 }
                 finally
                 {
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
                 }
 
             }

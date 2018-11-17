@@ -24,6 +24,10 @@ namespace WindowsFormsApplication2
         string str;
         private void button1_Click(object sender, EventArgs e)
         {
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             connection.Open();
             try
             {
@@ -42,7 +46,10 @@ namespace WindowsFormsApplication2
                 else {
                     MessageBox.Show("Password Mismatch");
                 }
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
             catch (Exception y)
             {

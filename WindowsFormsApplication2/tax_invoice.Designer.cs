@@ -43,6 +43,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox21 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -113,8 +115,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox21 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -299,6 +299,26 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Add / Modify";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(695, 529);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(116, 17);
+            this.label3.TabIndex = 95;
+            this.label3.Text = "Enter Disount(%)";
+            // 
+            // textBox21
+            // 
+            this.textBox21.Location = new System.Drawing.Point(817, 525);
+            this.textBox21.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox21.Name = "textBox21";
+            this.textBox21.Size = new System.Drawing.Size(132, 22);
+            this.textBox21.TabIndex = 94;
+            this.textBox21.Text = "0";
+            this.textBox21.TextChanged += new System.EventHandler(this.textBox21_TextChanged);
+            // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(977, 150);
@@ -345,6 +365,7 @@
             this.textBox9.Location = new System.Drawing.Point(332, 101);
             this.textBox9.Margin = new System.Windows.Forms.Padding(4);
             this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
             this.textBox9.Size = new System.Drawing.Size(93, 22);
             this.textBox9.TabIndex = 9;
             // 
@@ -363,6 +384,7 @@
             this.textBox8.Location = new System.Drawing.Point(113, 95);
             this.textBox8.Margin = new System.Windows.Forms.Padding(4);
             this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
             this.textBox8.Size = new System.Drawing.Size(129, 22);
             this.textBox8.TabIndex = 7;
             // 
@@ -381,6 +403,7 @@
             this.textBox7.Location = new System.Drawing.Point(332, 65);
             this.textBox7.Margin = new System.Windows.Forms.Padding(4);
             this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
             this.textBox7.Size = new System.Drawing.Size(93, 22);
             this.textBox7.TabIndex = 5;
             // 
@@ -399,6 +422,7 @@
             this.textBox6.Location = new System.Drawing.Point(113, 62);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(129, 22);
             this.textBox6.TabIndex = 3;
             // 
@@ -418,6 +442,7 @@
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
             this.textBox5.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox5.Size = new System.Drawing.Size(252, 46);
             this.textBox5.TabIndex = 1;
@@ -458,6 +483,7 @@
             this.textBox13.Location = new System.Drawing.Point(348, 107);
             this.textBox13.Margin = new System.Windows.Forms.Padding(4);
             this.textBox13.Name = "textBox13";
+            this.textBox13.ReadOnly = true;
             this.textBox13.Size = new System.Drawing.Size(93, 22);
             this.textBox13.TabIndex = 15;
             // 
@@ -476,6 +502,7 @@
             this.textBox14.Location = new System.Drawing.Point(127, 107);
             this.textBox14.Margin = new System.Windows.Forms.Padding(4);
             this.textBox14.Name = "textBox14";
+            this.textBox14.ReadOnly = true;
             this.textBox14.Size = new System.Drawing.Size(129, 22);
             this.textBox14.TabIndex = 13;
             // 
@@ -494,6 +521,7 @@
             this.textBox10.Location = new System.Drawing.Point(348, 73);
             this.textBox10.Margin = new System.Windows.Forms.Padding(4);
             this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(93, 22);
             this.textBox10.TabIndex = 11;
             // 
@@ -512,6 +540,7 @@
             this.textBox11.Location = new System.Drawing.Point(127, 71);
             this.textBox11.Margin = new System.Windows.Forms.Padding(4);
             this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
             this.textBox11.Size = new System.Drawing.Size(129, 22);
             this.textBox11.TabIndex = 9;
             // 
@@ -531,6 +560,7 @@
             this.textBox12.Margin = new System.Windows.Forms.Padding(4);
             this.textBox12.Multiline = true;
             this.textBox12.Name = "textBox12";
+            this.textBox12.ReadOnly = true;
             this.textBox12.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox12.Size = new System.Drawing.Size(252, 46);
             this.textBox12.TabIndex = 7;
@@ -832,6 +862,7 @@
             this.textBox15.Location = new System.Drawing.Point(1099, 63);
             this.textBox15.Margin = new System.Windows.Forms.Padding(4);
             this.textBox15.Name = "textBox15";
+            this.textBox15.ReadOnly = true;
             this.textBox15.Size = new System.Drawing.Size(240, 22);
             this.textBox15.TabIndex = 74;
             // 
@@ -990,26 +1021,6 @@
             this.button1.Text = "New";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(695, 529);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(116, 17);
-            this.label3.TabIndex = 95;
-            this.label3.Text = "Enter Disount(%)";
-            // 
-            // textBox21
-            // 
-            this.textBox21.Location = new System.Drawing.Point(817, 525);
-            this.textBox21.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(132, 22);
-            this.textBox21.TabIndex = 94;
-            this.textBox21.Text = "0";
-            this.textBox21.TextChanged += new System.EventHandler(this.textBox21_TextChanged);
             // 
             // tax_invoice
             // 
